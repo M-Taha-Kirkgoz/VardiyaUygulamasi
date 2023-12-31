@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">VardiyaUygulamasi</string>
+    <string name="vardiya_lemleri">Vardiya İşlemleri</string>
+    <string name="vardiyalar">Vardiyalar</string>
+    <string name="kullan_c_lemleri">Kullanıcı İşlemleri</string>
+    <string name="departman_lemleri">Departman İşlemleri</string>
 </resources>

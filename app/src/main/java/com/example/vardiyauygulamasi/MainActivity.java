@@ -1,14 +1,20 @@
 package com.example.vardiyauygulamasi;
 
-import static kotlin.jvm.internal.Reflection.typeOf;
-
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.vardiyauygulamasi.admin.AdminHome;
+import com.example.vardiyauygulamasi.classes.User;
+import com.example.vardiyauygulamasi.user.UserHome;
+
+import java.io.Serializable;
 
 public class MainActivity extends AppCompatActivity {
     DatabaseHelper db;
@@ -44,13 +50,27 @@ public class MainActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Boolean kullanici_varmi = db.userIsHave(Integer.parseInt(tc_no.getText().toString()));
+                boolean kullanici_varmi = db.userIsHave(Integer.parseInt(tc_no.getText().toString()));
 
                 if (kullanici_varmi){
-                    Boolean login = db.userLogin(Integer.parseInt(tc_no.getText().toString()), pass.getText().toString());
+                    boolean login = db.userLogin(Integer.parseInt(tc_no.getText().toString()), pass.getText().toString());
 
-                    if (login)
+                    if (login){
                         Toast.makeText(MainActivity.this, "Kullanici Girisi Basarili", Toast.LENGTH_LONG).show();
+
+                        User userDetail = db.userDetails(Integer.parseInt(tc_no.getText().toString()));
+
+                        Intent intnt;
+
+                        if (userDetail.roleId == 1)
+                            intnt = new Intent(MainActivity.this, AdminHome.class);
+                        else
+                            intnt = new Intent(MainActivity.this, UserHome.class);
+
+                        intnt.putExtra("userDetail", userDetail);
+
+                        startActivity(intnt);
+                    }
 
                     else
                         Toast.makeText(MainActivity.this, "Kullanici Girisi Basarisiz", Toast.LENGTH_LONG).show();

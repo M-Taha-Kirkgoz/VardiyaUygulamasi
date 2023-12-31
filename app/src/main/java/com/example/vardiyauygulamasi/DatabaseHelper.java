@@ -5,7 +5,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.vardiyauygulamasi.classes.User;
+
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -102,12 +107,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return crs.moveToFirst();
     }
 
-    public boolean userRoleIsAdmin (int id){
-        Cursor crs = read.rawQuery("SELECT * FROM roles WHERE ID = ("+id+")", null);
+    public boolean userRoleIsAdmin (int userRoleId){
+        Cursor crs = read.rawQuery("SELECT * FROM roles WHERE ID = ("+userRoleId+")", null);
 
         String role = crs.getString(1);
 
-        return role == "Admin";
+        return role.equals("Admin") ? true : false;
     }
 
     public String whatIsUserDepartment (int id){
@@ -127,5 +132,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "WHERE TCKN = ("+tCKN+") AND Password = ('"+password+"')", null);
 
         return crs.moveToFirst();
+    }
+
+    public User userDetails(int tCKN){
+        Cursor crs = read.rawQuery("SELECT * FROM users " +
+                "WHERE TCKN = ("+tCKN+")", null);
+
+        if (crs.moveToFirst()){
+            return new User(
+                    crs.getInt(0), // TCKN
+                    crs.getInt(1), // RoleId
+                    crs.getInt(2), // DepartmentId
+                    crs.getString(3), // Name
+                    crs.getString(4), // SurName
+                    crs.getString(5) // Password
+            );
+        }
+
+        else{
+            return null;
+        }
     }
 }
