@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.vardiyauygulamasi.R;
@@ -20,6 +22,19 @@ public class AdminHome extends AppCompatActivity {
 
         User userDetail = (User) intent.getSerializableExtra("userDetail");
 
-        Toast.makeText(this, userDetail.name.toString(), Toast.LENGTH_LONG).show();
+        Button vardiyaIslemleri = findViewById(R.id.vardiya_islemleri);
+        Button vardiyalar = findViewById(R.id.vardiyalar);
+        Button kullaniciIslemleri = findViewById(R.id.kullanici_islemleri);
+        Button deparmantIslemleri = findViewById(R.id.departman_islemleri);
+
+        kullaniciIslemleri.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent userOperationsIntent = new Intent(AdminHome.this, UserOperations.class);
+
+                startActivity(userOperationsIntent);
+            }
+        });
+
     }
 }

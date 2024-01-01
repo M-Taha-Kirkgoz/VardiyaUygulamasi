@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.vardiyauygulamasi.classes.Department;
 import com.example.vardiyauygulamasi.classes.User;
 
 import org.w3c.dom.Text;
@@ -152,5 +153,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else{
             return null;
         }
+    }
+
+    public ArrayList<Department> getAllDepartments(){
+        ArrayList<Department> departmanlar = new ArrayList<>();
+
+        Cursor crs = read.rawQuery("SELECT * FROM departments", null);
+
+        while (crs.moveToNext()){
+            departmanlar.add(new Department(
+                    crs.getInt(0),
+                    crs.getString(1)
+            ));
+        }
+
+        crs.close();
+
+        return departmanlar;
     }
 }

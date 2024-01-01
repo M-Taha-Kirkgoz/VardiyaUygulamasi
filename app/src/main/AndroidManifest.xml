@@ -13,6 +13,11 @@
         android:theme="@style/Theme.VardiyaUygulamasi"
         tools:targetApi="31">
         <activity
+            android:name=".admin.UserOperations"
+            android:exported="false"
+            android:label="@string/title_activity_user_operations"
+            android:theme="@style/Theme.VardiyaUygulamasi" />
+        <activity
             android:name=".user.UserHome"
             android:exported="false" />
         <activity
