@@ -9,36 +9,36 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class RoleAdapter extends ArrayAdapter<Role> {
+public class UserAdapter extends ArrayAdapter<User> {
 
-    public RoleAdapter(Context context, List<Role> roleList){
-        super(context, 0, roleList);
+    public UserAdapter(Context context, List<User> userList){
+        super (context, 0, userList);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
-        Role roller = getItem(position);
+        User kullanicilar = getItem(position);
 
         if (convertView == null){
-            convertView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_spinner_item,parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_spinner_item, parent, false);
         }
 
         TextView textView = convertView.findViewById(android.R.id.text1);
-        textView.setText(roller.roleName);
+        textView.setText(kullanicilar.name + " " + kullanicilar.surName);
 
         return convertView;
     }
 
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent){
-        Role role = getItem(position);
+        User kullanicilar = getItem(position);
 
         if (convertView == null){
-            convertView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_spinner_dropdown_item,parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_spinner_dropdown_item, parent, false);
         }
 
         TextView textView = convertView.findViewById(android.R.id.text1);
-        textView.setText(role.roleName);
+        textView.setText(kullanicilar.name + " " + kullanicilar.surName);
 
         return convertView;
     }

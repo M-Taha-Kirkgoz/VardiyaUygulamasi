@@ -139,13 +139,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return crs.moveToFirst();
     }
 
+    public void userUpdate(long tCKN, int roleId, int departmentId, String name, String surName, String password){
+        write.execSQL("UPDATE users " +
+                "set RoleId = "+roleId+"," +
+                "DepartmentId = "+departmentId+"," +
+                "Name = '"+name+"'," +
+                "SurName = '"+surName+"'," +
+                "Password = '"+password+"'" +
+                "WHERE TCKN = "+tCKN+" ");
+
+        Toast.makeText(cnt, "Kullanıcı Güncelleme İşlemi Başarılı !", Toast.LENGTH_SHORT).show();
+    }
+
+    public void userRemove(long tCKN){
+        write.execSQL("DELETE FROM users WHERE TCKN = "+tCKN+" ");
+
+        Toast.makeText(cnt, "Kullanıcı Silme İşlemi başarılı !", Toast.LENGTH_SHORT).show();
+    }
+
     public User userDetails(long tCKN){
         Cursor crs = read.rawQuery("SELECT * FROM users " +
                 "WHERE TCKN = ("+tCKN+")", null);
 
         if (crs.moveToFirst()){
             return new User(
-                    crs.getInt(0), // TCKN
+                    crs.getLong(0), // TCKN
                     crs.getInt(1), // RoleId
                     crs.getInt(2), // DepartmentId
                     crs.getString(3), // Name
@@ -191,5 +209,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         crs.close();
 
         return roller;
+    }
+
+    public ArrayList<User> getAllUsers(){
+        ArrayList<User> kullanicilar = new ArrayList<>();
+
+        Cursor crs = read.rawQuery("SELECT * FROM users", null);
+
+        while(crs.moveToNext()){
+            kullanicilar.add(new User(
+                    crs.getLong(0), // TCKN
+                    crs.getInt(1), // RoleId
+                    crs.getInt(2), // DepartmentId
+                    crs.getString(3), // Name
+                    crs.getString(4), // SurName
+                    crs.getString(5) // Password
+            ));
+        }
+
+        crs.close();
+
+        return kullanicilar;
     }
 }

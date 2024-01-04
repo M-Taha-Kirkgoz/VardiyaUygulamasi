@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Spinner
+        android:id="@+id/users"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="26dp"
+        app:layout_constraintEnd_toEndOf="@+id/user_tc_no"
+        app:layout_constraintStart_toStartOf="@+id/user_tc_no"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/user_tc_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="114dp"
+        android:layout_marginEnd="67dp"
+        android:ems="10"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/departments"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginBottom="72dp"
+        app:layout_constraintBottom_toBottomOf="@+id/roles"
+        app:layout_constraintEnd_toEndOf="@+id/roles"
+        app:layout_constraintStart_toStartOf="@+id/roles"
+        app:layout_constraintTop_toTopOf="@+id/textView5" />
+
+    <EditText
+        android:id="@+id/user_pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
+        android:ems="10"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="@+id/user_surname"
+        app:layout_constraintTop_toBottomOf="@+id/user_surname" />
+
+    <EditText
+        android:id="@+id/user_surname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="43dp"
+        android:ems="10"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="@+id/user_name"
+        app:layout_constraintTop_toBottomOf="@+id/user_name" />
+
+    <Spinner
+        android:id="@+id/roles"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="125dp"
+        android:layout_marginBottom="126dp"
+        app:layout_constraintBottom_toBottomOf="@+id/kullaniciyi_guncelle"
+        app:layout_constraintEnd_toEndOf="@+id/user_pass"
+        app:layout_constraintStart_toStartOf="@+id/user_pass"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <EditText
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:ems="10"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="@+id/user_tc_no"
+        app:layout_constraintTop_toBottomOf="@+id/user_tc_no" />
+
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="35dp"
+        android:text="Kullanıcı Seç"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="66dp"
+        android:text="Adı"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="66dp"
+        android:text="Soyadı"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Şifresi"
+        app:layout_constraintBaseline_toBaselineOf="@+id/user_pass"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        android:text="Departmanı"
+        app:layout_constraintBaseline_toBaselineOf="@+id/departments"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="93dp"
+        android:layout_marginBottom="92dp"
+        android:text="T.C. No."
+        app:layout_constraintBottom_toBottomOf="@+id/user_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView26" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="82dp"
+        android:layout_marginBottom="84dp"
+        android:text="Rolü"
+        app:layout_constraintBottom_toTopOf="@+id/kullaniciyi_sil"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/departments" />
+
+    <Button
+        android:id="@+id/kullaniciyi_sil"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginEnd="26dp"
+        android:text="Kullanıcıyı Sil"
+        app:layout_constraintBaseline_toBaselineOf="@+id/kullaniciyi_guncelle"
+        app:layout_constraintEnd_toStartOf="@+id/kullaniciyi_guncelle"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/kullaniciyi_guncelle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="40dp"
+        android:text="Kullanıcıyı Güncelle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

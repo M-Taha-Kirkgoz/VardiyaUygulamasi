@@ -3,7 +3,7 @@ package com.example.vardiyauygulamasi.classes;
 import java.io.Serializable;
 
 public class User implements Serializable {
-    public int tCKN;
+    public long tCKN;
     public int roleId;
     public int departmentId;
     public String name;
@@ -11,7 +11,7 @@ public class User implements Serializable {
     public String password;
 
 
-    public User(int tCKN, int roleId, int departmentId, String name, String surName, String password) {
+    public User(long tCKN, int roleId, int departmentId, String name, String surName, String password) {
         this.tCKN = tCKN;
         this.roleId = roleId;
         this.departmentId = departmentId;

@@ -91,7 +91,7 @@
         android:layout_height="35dp"
         android:layout_marginTop="68dp"
         android:layout_marginEnd="62dp"
-        android:layout_marginBottom="70dp"
+        android:layout_marginBottom="69dp"
         app:layout_constraintBottom_toTopOf="@+id/textView7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView6"
@@ -112,13 +112,11 @@
         android:id="@+id/roles"
         android:layout_width="0dp"
         android:layout_height="35dp"
-        android:layout_marginTop="61dp"
         android:layout_marginEnd="60dp"
         android:layout_marginBottom="261dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView7"
-        app:layout_constraintTop_toBottomOf="@+id/departments" />
+        app:layout_constraintStart_toEndOf="@+id/textView7" />
 
     <TextView
         android:id="@+id/textView7"
@@ -132,7 +130,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/kullanici_kaydet"
+        android:id="@+id/kullaniciyi_sil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="94dp"
