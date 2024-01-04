@@ -50,15 +50,15 @@ public class MainActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean kullanici_varmi = db.userIsHave(Integer.parseInt(tc_no.getText().toString()));
+                boolean kullanici_varmi = db.userIsHave(Long.parseLong(tc_no.getText().toString()));
 
                 if (kullanici_varmi){
-                    boolean login = db.userLogin(Integer.parseInt(tc_no.getText().toString()), pass.getText().toString());
+                    boolean login = db.userLogin(Long.parseLong(tc_no.getText().toString()), pass.getText().toString());
 
                     if (login){
                         Toast.makeText(MainActivity.this, "Kullanici Girisi Basarili", Toast.LENGTH_LONG).show();
 
-                        User userDetail = db.userDetails(Integer.parseInt(tc_no.getText().toString()));
+                        User userDetail = db.userDetails(Long.parseLong(tc_no.getText().toString()));
 
                         Intent intnt;
 
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 else
-                    Toast.makeText(MainActivity.this, "Boyle Bir Kullanici Bulunamadi " + Integer.parseInt(tc_no.getText().toString()), Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Boyle Bir Kullanici Bulunamadi " + Long.parseLong(tc_no.getText().toString()), Toast.LENGTH_LONG).show();
             }
         });
 

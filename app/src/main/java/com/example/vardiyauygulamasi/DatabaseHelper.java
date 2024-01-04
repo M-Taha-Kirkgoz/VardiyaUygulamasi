@@ -4,8 +4,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import com.example.vardiyauygulamasi.classes.Department;
+import com.example.vardiyauygulamasi.classes.Role;
 import com.example.vardiyauygulamasi.classes.User;
 
 import org.w3c.dom.Text;
@@ -31,7 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "DepartmentName text NOT NULL" +
             ")";
 
-    private static final String CreateUsers = "CREATE TABLE users (TCKN INTEGER PRIMARY KEY, " +
+    private static final String CreateUsers = "CREATE TABLE users (TCKN LONG PRIMARY KEY, " +
             "RoleId int NOT NULL," +
             "DepartmentId int NOT NULL," +
             "Name text NOT NULL," +
@@ -69,7 +71,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO departments (DepartmentName) VALUES ('Deneme')");
         db.execSQL("INSERT INTO users " +
                 "(TCKN, RoleId, DepartmentId, Name, SurName, Password)" +
-                "VALUES (012, 1, 1, 'Admin', 'Admin', '0000')");
+                "VALUES (1, 1, 1, 'Admin', 'Admin', '0000')");
     }
 
     @Override
@@ -83,7 +85,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO departments (DepartmentName) VALUES ('Deneme')");
         db.execSQL("INSERT INTO users " +
                 "(TCKN, RoleId, DepartmentId, Name, SurName, Password)" +
-                "VALUES (012, 1, 1, 'Admin', 'Admin', '0000')");
+                "VALUES (1, 1, 1, 'Admin', 'Admin', '0000')");
     }
 
     //==============================================================================================
@@ -97,12 +99,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         write.execSQL("INSERT INTO users " +
                 "(TCKN, RoleId, DepartmentId, Name, SurName, Password)" +
-                "VALUES (012, 1, 1, 'Admin', 'Admin', '0000')");
+                "VALUES (1, 1, 1, 'Admin', 'Admin', '0000')");
     }
 
     //==============================================================================================
 
-    public boolean userIsHave (int tCKN){
+    public boolean userIsHave (long tCKN){
         Cursor crs = read.rawQuery("SELECT * FROM users WHERE TCKN = ("+tCKN+")", null);
 
         return crs.moveToFirst();
@@ -122,20 +124,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return crs.getString(1);
     }
 
-    public void userRegister (int tCKN, int roleId, int departmentId, String name, String surName, String password){
+    public void userRegister (long tCKN, int roleId, int departmentId, String name, String surName, String password){
         write.execSQL("INSERT INTO users" +
                 "(TCKN, RoleId, DepartmentId, Name, SurName, Password)" +
                 "VALUES ("+tCKN+", "+roleId+", "+departmentId+", '"+name+"', '"+surName+"', '"+password+"')");
+
+        Toast.makeText(cnt, "Kullanici Basariyla Kaydedildi !", Toast.LENGTH_SHORT).show();
     }
 
-    public boolean userLogin (int tCKN, String password){
+    public boolean userLogin (long tCKN, String password){
         Cursor crs = read.rawQuery("SELECT * FROM users " +
                 "WHERE TCKN = ("+tCKN+") AND Password = ('"+password+"')", null);
 
         return crs.moveToFirst();
     }
 
-    public User userDetails(int tCKN){
+    public User userDetails(long tCKN){
         Cursor crs = read.rawQuery("SELECT * FROM users " +
                 "WHERE TCKN = ("+tCKN+")", null);
 
@@ -170,5 +174,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         crs.close();
 
         return departmanlar;
+    }
+
+    public ArrayList<Role> getAllRoles(){
+        ArrayList<Role> roller = new ArrayList<>();
+
+        Cursor crs = read.rawQuery("SELECT * FROM roles", null);
+
+        while(crs.moveToNext()){
+            roller.add(new Role(
+                    crs.getInt(0),
+                    crs.getString(1)
+            ));
+        }
+
+        crs.close();
+
+        return roller;
     }
 }
