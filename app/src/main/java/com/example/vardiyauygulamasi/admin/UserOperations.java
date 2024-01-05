@@ -1,7 +1,5 @@
 package com.example.vardiyauygulamasi.admin;
 
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -51,7 +49,7 @@ public class UserOperations extends AppCompatActivity {
 
                 Spinner departmentsSpinner = findViewById(R.id.departments);
                 Spinner roleSpinner = findViewById(R.id.roles);
-                Button userCreate = findViewById(R.id.kullaniciyi_sil);
+                Button userCreate = findViewById(R.id.kullanici_olustur);
 
                 DepartmentsAdapter adapter = new DepartmentsAdapter(UserOperations.this, departments);
                 departmentsSpinner.setAdapter(adapter);

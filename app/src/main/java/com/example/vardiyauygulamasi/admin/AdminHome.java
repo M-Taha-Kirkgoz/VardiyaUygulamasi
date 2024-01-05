@@ -25,7 +25,7 @@ public class AdminHome extends AppCompatActivity {
         Button vardiyaIslemleri = findViewById(R.id.vardiya_islemleri);
         Button vardiyalar = findViewById(R.id.vardiyalar);
         Button kullaniciIslemleri = findViewById(R.id.kullanici_islemleri);
-        Button deparmantIslemleri = findViewById(R.id.departman_islemleri);
+        Button departmanIslemleri = findViewById(R.id.departman_islemleri);
 
         kullaniciIslemleri.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -33,6 +33,15 @@ public class AdminHome extends AppCompatActivity {
                 Intent userOperationsIntent = new Intent(AdminHome.this, UserOperations.class);
 
                 startActivity(userOperationsIntent);
+            }
+        });
+
+        departmanIslemleri.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent departmentOperationsIntent = new Intent(AdminHome.this, DepartmentOperations.class);
+
+                startActivity(departmentOperationsIntent);
             }
         });
 

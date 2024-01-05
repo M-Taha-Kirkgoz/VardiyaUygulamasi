@@ -124,6 +124,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return crs.getString(1);
     }
 
+    //================================== User Operations ===================================//
+
     public void userRegister (long tCKN, int roleId, int departmentId, String name, String surName, String password){
         write.execSQL("INSERT INTO users" +
                 "(TCKN, RoleId, DepartmentId, Name, SurName, Password)" +
@@ -141,7 +143,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void userUpdate(long tCKN, int roleId, int departmentId, String name, String surName, String password){
         write.execSQL("UPDATE users " +
-                "set RoleId = "+roleId+"," +
+                "SET RoleId = "+roleId+"," +
                 "DepartmentId = "+departmentId+"," +
                 "Name = '"+name+"'," +
                 "SurName = '"+surName+"'," +
@@ -175,6 +177,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else{
             return null;
         }
+    }
+
+    //================================== Department Operations ===================================//
+    
+    public void departmentCreate(String departmentName){
+        write.execSQL("INSERT INTO departments" +
+                "(DepartmentName)" +
+                "VALUES ('"+departmentName+"')");
+
+        Toast.makeText(cnt, "Departman Oluşturma İşlemi Başarılı !", Toast.LENGTH_SHORT).show();
+    }
+    
+    public void departmentRemove(int id){
+        write.execSQL("DELETE FROM departments WHERE ID = "+id+" ");
+
+        Toast.makeText(cnt, "Departman Silme İşlemi Başarılı !", Toast.LENGTH_SHORT).show();
+    }
+    
+    public void departmentUpdate(int id, String departmentName){
+        write.execSQL("UPDATE departments " +
+                "SET DepartmentName = '"+departmentName+"'" +
+                "WHERE ID = "+id+"");
+
+        Toast.makeText(cnt, "Departman Güncelleme İşlemi Başarılı !", Toast.LENGTH_SHORT).show();
+    }
+
+    public boolean departmentIsHave(String departmentName){
+        Cursor crs = read.rawQuery("SELECT * FROM departments WHERE DepartmentName = '"+departmentName+"' ", null);
+
+        return crs.moveToFirst();
     }
 
     public ArrayList<Department> getAllDepartments(){
