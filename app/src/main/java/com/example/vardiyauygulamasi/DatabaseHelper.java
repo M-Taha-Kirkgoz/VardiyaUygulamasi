@@ -10,11 +10,7 @@ import com.example.vardiyauygulamasi.classes.Department;
 import com.example.vardiyauygulamasi.classes.Role;
 import com.example.vardiyauygulamasi.classes.User;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.Arrays;
-
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -43,12 +39,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "FOREIGN KEY (DepartmentId) REFERENCES departments (ID)" +
             ")";
 
+
+    //DEFAULT (strftime ('%d-%m-%d %H-%M-%s', 'now', 'localtime'))
+
     private static final String CreateShifts = "CREATE TABLE shifts (ID INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "UserTCKN int," +
-            "DepartmentId int," +
-            "Date datetime DEFAULT (strftime ('%d-%m-%d %H-%M-%s', 'now', 'localtime'))," +
-            "BeginTime text," +
-            "EndTime text," +
+            "UserTCKN long NOT NULL," +
+            "DepartmentId int NOT NULL," +
+            "Date date DEFAULT (strftime ('%d-%m-%d %H-%M-%s', 'now', 'localtime'))," +
+            "BeginTime time," +
+            "EndTime time," +
             "FOREIGN KEY (UserTCKN) REFERENCES users (TCKN)," +
             "FOREIGN KEY (DepartmentId) REFERENCES departments (ID)" +
             ")";
@@ -90,12 +89,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //==============================================================================================
 
-    public void deleteUserTable(){
+    public void deleteUserTable()
+    {
         write.execSQL("DROP TABLE users");
+        write.execSQL("DROP TABLE shifts");
+
     }
 
     public void createUserTable(){
         write.execSQL(CreateUsers);
+        write.execSQL(CreateShifts);
 
         write.execSQL("INSERT INTO users " +
                 "(TCKN, RoleId, DepartmentId, Name, SurName, Password)" +
@@ -179,6 +182,49 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public ArrayList<User> getAllUsers(){
+        ArrayList<User> kullanicilar = new ArrayList<>();
+
+        Cursor crs = read.rawQuery("SELECT * FROM users", null);
+
+        while(crs.moveToNext()){
+            kullanicilar.add(new User(
+                    crs.getLong(0), // TCKN
+                    crs.getInt(1), // RoleId
+                    crs.getInt(2), // DepartmentId
+                    crs.getString(3), // Name
+                    crs.getString(4), // SurName
+                    crs.getString(5) // Password
+            ));
+        }
+
+        crs.close();
+
+        return kullanicilar;
+    }
+
+    public ArrayList<User> getAllUserByDepartments(int departmentId){
+        ArrayList<User> kullanicilar = new ArrayList<>();
+
+        Cursor crs = read.rawQuery("SELECT * FROM users " +
+                "WHERE DepartmentId = "+departmentId+" ", null);
+
+        while(crs.moveToNext()){
+            kullanicilar.add(new User(
+                    crs.getLong(0), // TCKN
+                    crs.getInt(1), // RoleId
+                    crs.getInt(2), // DepartmentId
+                    crs.getString(3), // Name
+                    crs.getString(4), // SurName
+                    crs.getString(5) // Password
+            ));
+        }
+
+        crs.close();
+
+        return kullanicilar;
+    }
+
     //================================== Department Operations ===================================//
     
     public void departmentCreate(String departmentName){
@@ -243,24 +289,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return roller;
     }
 
-    public ArrayList<User> getAllUsers(){
-        ArrayList<User> kullanicilar = new ArrayList<>();
+    //================================== Shift Operations ===================================//
 
-        Cursor crs = read.rawQuery("SELECT * FROM users", null);
+    public void shiftCreate(long tCKN, int departmentId, String date, String beginTime, String endTime){
+        write.execSQL("INSERT INTO shifts " +
+                "(UserTCKN, DepartmentId, Date, BeginTime, EndTime)" +
+                "VALUES ("+tCKN+", "+departmentId+", '"+date+"', '"+beginTime+"', '"+endTime+"')");
 
-        while(crs.moveToNext()){
-            kullanicilar.add(new User(
-                    crs.getLong(0), // TCKN
-                    crs.getInt(1), // RoleId
-                    crs.getInt(2), // DepartmentId
-                    crs.getString(3), // Name
-                    crs.getString(4), // SurName
-                    crs.getString(5) // Password
-            ));
-        }
-
-        crs.close();
-
-        return kullanicilar;
+        Toast.makeText(cnt, "Vardiya Ekleme İşlemi Başarıyla Tamamlandı !", Toast.LENGTH_SHORT).show();
     }
 }

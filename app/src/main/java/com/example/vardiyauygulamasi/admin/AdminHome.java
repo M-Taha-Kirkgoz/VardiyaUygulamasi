@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
-
 import com.example.vardiyauygulamasi.R;
 import com.example.vardiyauygulamasi.classes.User;
 
@@ -42,6 +40,15 @@ public class AdminHome extends AppCompatActivity {
                 Intent departmentOperationsIntent = new Intent(AdminHome.this, DepartmentOperations.class);
 
                 startActivity(departmentOperationsIntent);
+            }
+        });
+
+        vardiyaIslemleri.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent shiftOperationsIntent = new Intent(AdminHome.this, ShiftOperations.class);
+
+                startActivity(shiftOperationsIntent);
             }
         });
 
