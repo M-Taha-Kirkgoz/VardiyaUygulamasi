@@ -131,16 +131,21 @@ public class ShiftOperations extends AppCompatActivity {
                                     Toast.makeText(ShiftOperations.this, "Lütfen Geçerli Bir Dakika Dilimi Giriniz ! ( 0 - 59 )", Toast.LENGTH_SHORT).show();
                                 }
                                 else{
-                                    editBeginHour = beginHour < 10 ? "0" + String.valueOf(beginHour) : String.valueOf(beginHour);
-                                    editBeginMinute = beginMinute < 10 ? "0" + String.valueOf(beginMinute) : String.valueOf(beginMinute);
+                                    if (!db.shiftIsHave(selectedDate, selectedUserTCKN)){
+                                        editBeginHour = beginHour < 10 ? "0" + String.valueOf(beginHour) : String.valueOf(beginHour);
+                                        editBeginMinute = beginMinute < 10 ? "0" + String.valueOf(beginMinute) : String.valueOf(beginMinute);
 
-                                    editEndHour = endHour < 10 ? "0" + String.valueOf(endHour) : String.valueOf(endHour);
-                                    editEndMinute = endMinute < 10 ? "0" + String.valueOf(endMinute) : String.valueOf(endMinute);
+                                        editEndHour = endHour < 10 ? "0" + String.valueOf(endHour) : String.valueOf(endHour);
+                                        editEndMinute = endMinute < 10 ? "0" + String.valueOf(endMinute) : String.valueOf(endMinute);
 
-                                    formattedBeginTime = editBeginHour + ":" + editBeginMinute;
-                                    formattedEndTime = editEndHour + ":" + editEndMinute;
+                                        formattedBeginTime = editBeginHour + ":" + editBeginMinute;
+                                        formattedEndTime = editEndHour + ":" + editEndMinute;
 
-                                    db.shiftCreate(selectedUserTCKN, selectedDepartmentId, selectedDate, formattedBeginTime, formattedEndTime);
+                                        db.shiftCreate(selectedUserTCKN, selectedDepartmentId, selectedDate, formattedBeginTime, formattedEndTime);
+                                    }
+                                    else {
+                                        Toast.makeText(ShiftOperations.this, "Belirlenen Tarihte Kullanıcının Bir Vardiya Kaydı Var Zaten !", Toast.LENGTH_LONG).show();
+                                    }
                                 }
                             }
                             else {

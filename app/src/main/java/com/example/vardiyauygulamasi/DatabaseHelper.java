@@ -365,6 +365,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Toast.makeText(cnt, "Vardiya Silme İşlemi Başarılı !", Toast.LENGTH_SHORT).show();
     }
 
+    public boolean shiftIsHave(String date, long tCKN){
+        Cursor crs = read.rawQuery("SELECT * FROM shifts " +
+                "WHERE Date = '"+date+"' AND UserTCKN = "+tCKN+" ", null);
+
+        return crs.moveToFirst();
+    }
+
 //    public ArrayList<Shift> getAllShift(){
 //        ArrayList<Shift> vardiyalar = new ArrayList<>();
 //
