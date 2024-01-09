@@ -8,9 +8,15 @@ import android.widget.Toast;
 
 import com.example.vardiyauygulamasi.classes.Department;
 import com.example.vardiyauygulamasi.classes.Role;
+import com.example.vardiyauygulamasi.classes.Shift;
 import com.example.vardiyauygulamasi.classes.User;
 
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.jar.Attributes;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -298,4 +304,112 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         Toast.makeText(cnt, "Vardiya Ekleme İşlemi Başarıyla Tamamlandı !", Toast.LENGTH_SHORT).show();
     }
+
+    public ArrayList<Shift> getAllShiftByDateAndDepartmentId(String date, int departmentId){
+        ArrayList<Shift> vardiyalar = new ArrayList<>();
+
+        Cursor crs = read.rawQuery("SELECT * FROM shifts " +
+                "JOIN users on users.TCKN = shifts.UserTCKN " +
+                "WHERE Date = '"+date+"' AND shifts.DepartmentId = "+departmentId+" ", null);
+
+        while(crs.moveToNext()){
+            int id = crs.getInt(0);
+            long userTckn = crs.getLong(1);
+            int shfDepartmentId = crs.getInt(2);
+            String dateStr = crs.getString(3);
+            String beginTimeStr = crs.getString(4);
+            String endTimeStr = crs.getString(5);
+            String userName = crs.getString(crs.getColumnIndexOrThrow("Name"));
+            String userSurname = crs.getString(crs.getColumnIndexOrThrow("SurName"));
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date shfDate = null;
+
+            try{
+                shfDate = dateFormat.parse(dateStr);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+            Date beginTime = null;
+            Date endTime = null;
+
+            try{
+                beginTime = timeFormat.parse(beginTimeStr);
+                endTime = timeFormat.parse(endTimeStr);
+            } catch (ParseException e ){
+                e.printStackTrace();
+            }
+
+            vardiyalar.add(new Shift(
+                    id,
+                    userTckn,
+                    shfDepartmentId,
+                    shfDate,
+                    beginTime,
+                    endTime,
+                    userName,
+                    userSurname
+            ));
+        }
+
+        crs.close();
+
+        return vardiyalar;
+    }
+
+    public void shiftRemove(int id){
+        write.execSQL("DELETE FROM shifts WHERE ID = "+id+"");
+
+        Toast.makeText(cnt, "Vardiya Silme İşlemi Başarılı !", Toast.LENGTH_SHORT).show();
+    }
+
+//    public ArrayList<Shift> getAllShift(){
+//        ArrayList<Shift> vardiyalar = new ArrayList<>();
+//
+//        Cursor crs = read.rawQuery("SELECT * FROM shifts ", null);
+//
+//        while(crs.moveToNext()){
+//            int id = crs.getInt(0);
+//            long userTckn = crs.getLong(1);
+//            int shfDepartmentId = crs.getInt(2);
+//            String dateStr = crs.getString(3);
+//            String beginTimeStr = crs.getString(4);
+//            String endTimeStr = crs.getString(5);
+//
+//            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//            Date shfDate = null;
+//
+//            try{
+//                shfDate = dateFormat.parse(dateStr);
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
+//
+//            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+//            Date beginTime = null;
+//            Date endTime = null;
+//
+//            try{
+//                beginTime = timeFormat.parse(beginTimeStr);
+//                endTime = timeFormat.parse(endTimeStr);
+//            } catch (ParseException e ){
+//                e.printStackTrace();
+//            }
+//
+//            vardiyalar.add(new Shift(
+//                    id,
+//                    userTckn,
+//                    shfDepartmentId,
+//                    shfDate,
+//                    beginTime,
+//                    endTime
+//            ));
+//        }
+//
+//        crs.close();
+//
+//        return vardiyalar;
+//    }
 }

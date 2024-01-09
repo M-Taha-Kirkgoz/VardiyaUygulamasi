@@ -16,6 +16,8 @@ import com.example.vardiyauygulamasi.DatabaseHelper;
 import com.example.vardiyauygulamasi.R;
 import com.example.vardiyauygulamasi.classes.Department;
 import com.example.vardiyauygulamasi.classes.DepartmentsAdapter;
+import com.example.vardiyauygulamasi.classes.Shift;
+import com.example.vardiyauygulamasi.classes.ShiftAdapter;
 import com.example.vardiyauygulamasi.classes.User;
 import com.example.vardiyauygulamasi.classes.UserAdapter;
 
@@ -30,6 +32,7 @@ public class ShiftOperations extends AppCompatActivity {
     private String selectedDate;
     private String formattedBeginTime;
     private String formattedEndTime;
+    private int selectedShiftId;
     DatabaseHelper db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,14 +101,10 @@ public class ShiftOperations extends AppCompatActivity {
                         public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
 
                             Calendar calendar = Calendar.getInstance();
-                            //calendar.set(dayOfMonth, (month + 1), year);
                             calendar.set(year, (month), dayOfMonth);
 
                             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                             selectedDate = dateFormat.format(calendar.getTime());
-                            //selectedDate = dayOfMonth + "." + (month + 1) + "." + year;
-
-                            Toast.makeText(ShiftOperations.this, selectedDate, Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -153,6 +152,61 @@ public class ShiftOperations extends AppCompatActivity {
                 else {
                     createShift.setEnabled(false);
                 }
+            }
+        });
+
+        canceledShift.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setContentView(R.layout.shift_update);
+
+                Button shiftRemove = findViewById(R.id.vardiya_sil);
+
+                CalendarView date = findViewById(R.id.tarih_sec);
+
+                Spinner userFilterByDate = findViewById(R.id.filtreli_kullanici);
+
+                date.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+                    @Override
+                    public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth){
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(year, (month), dayOfMonth);
+
+                        Date sDate = calendar.getTime();
+
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        selectedDate = dateFormat.format(calendar.getTime());
+
+                        ArrayList<Shift> shifts = db.getAllShiftByDateAndDepartmentId(selectedDate, selectedDepartmentId);
+
+                        if (shifts.size() != 0) {
+                            ShiftAdapter shiftAdapter = new ShiftAdapter(ShiftOperations.this, shifts);
+                            userFilterByDate.setAdapter(shiftAdapter);
+
+                            userFilterByDate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                    selectedShiftId = shifts.get(position).id;
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> parent) {
+
+                                }
+                            });
+
+                            shiftRemove.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v){
+                                    db.shiftRemove(selectedShiftId);
+                                }
+                            });
+                        }
+                        else {
+                            shiftRemove.setEnabled(false);
+                        }
+                    }
+                });
             }
         });
     }
