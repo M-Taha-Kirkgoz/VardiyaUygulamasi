@@ -1,4 +1,4 @@
-package com.example.vardiyauygulamasi.classes;
+package com.example.vardiyauygulamasi.Dtos;
 
 public class Role {
     public int id;

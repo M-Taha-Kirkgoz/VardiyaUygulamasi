@@ -1,4 +1,4 @@
-package com.example.vardiyauygulamasi.classes;
+package com.example.vardiyauygulamasi.Dtos;
 
 import java.sql.Time;
 import java.util.Date;

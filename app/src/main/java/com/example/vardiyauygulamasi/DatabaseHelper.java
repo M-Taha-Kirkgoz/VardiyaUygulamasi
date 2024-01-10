@@ -6,17 +6,15 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
-import com.example.vardiyauygulamasi.classes.Department;
-import com.example.vardiyauygulamasi.classes.Role;
-import com.example.vardiyauygulamasi.classes.Shift;
-import com.example.vardiyauygulamasi.classes.User;
+import com.example.vardiyauygulamasi.Dtos.Department;
+import com.example.vardiyauygulamasi.Dtos.Role;
+import com.example.vardiyauygulamasi.Dtos.Shift;
+import com.example.vardiyauygulamasi.Dtos.User;
 
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.jar.Attributes;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 

@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import com.example.vardiyauygulamasi.R;
-import com.example.vardiyauygulamasi.classes.User;
+import com.example.vardiyauygulamasi.Dtos.User;
 
 public class AdminHome extends AppCompatActivity {
 
@@ -49,6 +49,15 @@ public class AdminHome extends AppCompatActivity {
                 Intent shiftOperationsIntent = new Intent(AdminHome.this, ShiftOperations.class);
 
                 startActivity(shiftOperationsIntent);
+            }
+        });
+
+        vardiyalar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent shiftsIntent = new Intent(AdminHome.this, Shifts.class);
+
+                startActivity(shiftsIntent);
             }
         });
 

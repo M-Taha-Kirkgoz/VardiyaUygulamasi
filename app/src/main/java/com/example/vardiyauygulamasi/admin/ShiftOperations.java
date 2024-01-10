@@ -14,12 +14,12 @@ import android.widget.Toast;
 
 import com.example.vardiyauygulamasi.DatabaseHelper;
 import com.example.vardiyauygulamasi.R;
-import com.example.vardiyauygulamasi.classes.Department;
-import com.example.vardiyauygulamasi.classes.DepartmentsAdapter;
-import com.example.vardiyauygulamasi.classes.Shift;
-import com.example.vardiyauygulamasi.classes.ShiftAdapter;
-import com.example.vardiyauygulamasi.classes.User;
-import com.example.vardiyauygulamasi.classes.UserAdapter;
+import com.example.vardiyauygulamasi.Dtos.Department;
+import com.example.vardiyauygulamasi.Adapters.DepartmentsAdapter;
+import com.example.vardiyauygulamasi.Dtos.Shift;
+import com.example.vardiyauygulamasi.Adapters.ShiftAdapter;
+import com.example.vardiyauygulamasi.Dtos.User;
+import com.example.vardiyauygulamasi.Adapters.UserAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -131,7 +131,7 @@ public class ShiftOperations extends AppCompatActivity {
                                     Toast.makeText(ShiftOperations.this, "Lütfen Geçerli Bir Dakika Dilimi Giriniz ! ( 0 - 59 )", Toast.LENGTH_SHORT).show();
                                 }
                                 else{
-                                    if (!db.shiftIsHave(selectedDate, selectedUserTCKN)){
+                                    if (!db.shiftIsHave(selectedDate, selectedUserTCKN) && selectedDate != null){
                                         editBeginHour = beginHour < 10 ? "0" + String.valueOf(beginHour) : String.valueOf(beginHour);
                                         editBeginMinute = beginMinute < 10 ? "0" + String.valueOf(beginMinute) : String.valueOf(beginMinute);
 
@@ -176,8 +176,6 @@ public class ShiftOperations extends AppCompatActivity {
                     public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth){
                         Calendar calendar = Calendar.getInstance();
                         calendar.set(year, (month), dayOfMonth);
-
-                        Date sDate = calendar.getTime();
 
                         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                         selectedDate = dateFormat.format(calendar.getTime());

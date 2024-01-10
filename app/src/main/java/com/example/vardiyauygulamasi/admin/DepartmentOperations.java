@@ -12,8 +12,8 @@ import android.widget.Toast;
 
 import com.example.vardiyauygulamasi.DatabaseHelper;
 import com.example.vardiyauygulamasi.R;
-import com.example.vardiyauygulamasi.classes.Department;
-import com.example.vardiyauygulamasi.classes.DepartmentsAdapter;
+import com.example.vardiyauygulamasi.Dtos.Department;
+import com.example.vardiyauygulamasi.Adapters.DepartmentsAdapter;
 
 import java.util.ArrayList;
 

@@ -12,12 +12,12 @@ import android.widget.Toast;
 
 import com.example.vardiyauygulamasi.DatabaseHelper;
 import com.example.vardiyauygulamasi.R;
-import com.example.vardiyauygulamasi.classes.Department;
-import com.example.vardiyauygulamasi.classes.DepartmentsAdapter;
-import com.example.vardiyauygulamasi.classes.Role;
-import com.example.vardiyauygulamasi.classes.RoleAdapter;
-import com.example.vardiyauygulamasi.classes.User;
-import com.example.vardiyauygulamasi.classes.UserAdapter;
+import com.example.vardiyauygulamasi.Dtos.Department;
+import com.example.vardiyauygulamasi.Adapters.DepartmentsAdapter;
+import com.example.vardiyauygulamasi.Dtos.Role;
+import com.example.vardiyauygulamasi.Adapters.RoleAdapter;
+import com.example.vardiyauygulamasi.Dtos.User;
+import com.example.vardiyauygulamasi.Adapters.UserAdapter;
 
 import java.util.ArrayList;
 

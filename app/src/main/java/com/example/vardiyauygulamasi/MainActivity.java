@@ -2,7 +2,6 @@ package com.example.vardiyauygulamasi;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,10 +10,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.vardiyauygulamasi.admin.AdminHome;
-import com.example.vardiyauygulamasi.classes.User;
+import com.example.vardiyauygulamasi.Dtos.User;
 import com.example.vardiyauygulamasi.user.UserHome;
 
-import java.io.Serializable;
 
 public class MainActivity extends AppCompatActivity {
     DatabaseHelper db;
