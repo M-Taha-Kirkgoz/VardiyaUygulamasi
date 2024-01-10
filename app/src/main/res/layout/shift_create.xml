@@ -7,8 +7,8 @@
 
     <Spinner
         android:id="@+id/kullanici_sec"
-        android:layout_width="0dp"
-        android:layout_height="38dp"
+        android:layout_width="347dp"
+        android:layout_height="44dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="64dp"
         android:layout_marginEnd="24dp"
@@ -25,7 +25,7 @@
         android:layout_marginStart="19dp"
         android:layout_marginTop="17dp"
         android:text="Kullanıcı Seç"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,7 +45,7 @@
         android:layout_marginStart="2dp"
         android:layout_marginBottom="8dp"
         android:text="Tarih Belirle"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/calendarView"
         app:layout_constraintStart_toStartOf="@+id/calendarView" />
 
@@ -56,7 +56,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="26dp"
         android:text="Başlangıç Saati"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendarView" />
 
@@ -64,33 +64,29 @@
         android:id="@+id/endTime"
         android:layout_width="139dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="46dp"
-        android:layout_marginEnd="45dp"
+        android:layout_marginEnd="38dp"
         android:ems="10"
         android:inputType="time"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/beginTime"
         app:layout_constraintTop_toTopOf="@+id/beginTime" />
 
     <EditText
         android:id="@+id/beginTime"
         android:layout_width="139dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="time"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView16"
         app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
     <TextView
         android:id="@+id/textView17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="7dp"
-        android:layout_marginBottom="21dp"
+        android:layout_marginBottom="9dp"
         android:text="Bitiş Saati"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/endTime"
         app:layout_constraintStart_toStartOf="@+id/endTime" />
 
@@ -98,10 +94,12 @@
         android:id="@+id/vardiya_olustur"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="62dp"
+        android:layout_marginStart="132dp"
+        android:layout_marginTop="46dp"
+        android:layout_marginEnd="138dp"
         android:text="Vardiya Ata"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/beginTime" />
+        app:layout_constraintTop_toBottomOf="@+id/endTime" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

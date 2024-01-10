@@ -9,25 +9,66 @@
         android:id="@+id/vardiya_tarih"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="26dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="19dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginBottom="69dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/liste"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/vardiya_tarih">
+
+        <TextView
+            android:id="@+id/adSoyadTextView"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/border"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:text="Ad Soyad"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/baslangicSaatiTextView"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:background="@drawable/border"
+            android:gravity="center"
+            android:text="Başlangıç"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/bitisSaatiTextView"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:background="@drawable/border"
+            android:gravity="center"
+            android:text="Bitiş"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/liste"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vardiya_tarih" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

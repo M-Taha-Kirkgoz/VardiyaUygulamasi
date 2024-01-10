@@ -2,6 +2,8 @@ package com.example.vardiyauygulamasi.admin;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +16,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.vardiyauygulamasi.Adapters.DepartmentsAdapter;
+import com.example.vardiyauygulamasi.Adapters.ShiftViewAdapter;
 import com.example.vardiyauygulamasi.DatabaseHelper;
 import com.example.vardiyauygulamasi.Dtos.Department;
 import com.example.vardiyauygulamasi.Dtos.Shift;
@@ -65,6 +68,7 @@ public class Shifts extends AppCompatActivity {
                         setContentView(R.layout.shifts_show);
 
                         CalendarView date = findViewById(R.id.vardiya_tarih);
+                        RecyclerView table = findViewById(R.id.liste);
 
                         date.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
                             @Override
@@ -76,6 +80,11 @@ public class Shifts extends AppCompatActivity {
                                 selectedDate = dateFormat.format(calendar.getTime());
 
                                 ArrayList<Shift> shifts = db.getAllShiftByDateAndDepartmentId(selectedDate, selectedDepartmentId);
+
+                                table.setLayoutManager(new LinearLayoutManager(Shifts.this));
+
+                                ShiftViewAdapter viewAdapter = new ShiftViewAdapter(shifts);
+                                table.setAdapter(viewAdapter);
 
                             }
                         });
