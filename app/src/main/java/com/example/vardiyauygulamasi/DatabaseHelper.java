@@ -93,14 +93,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //==============================================================================================
 
-    public void deleteUserTable()
-    {
+    public void deleteUserTable() {
         write.execSQL("DROP TABLE users");
         write.execSQL("DROP TABLE shifts");
 
     }
 
-    public void createUserTable(){
+    public void createUserTable() {
         write.execSQL(CreateUsers);
         write.execSQL(CreateShifts);
 
@@ -111,66 +110,69 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //==============================================================================================
 
-    public boolean userIsHave (long tCKN){
-        Cursor crs = read.rawQuery("SELECT * FROM users WHERE TCKN = ("+tCKN+")", null);
+    public boolean userIsHave(long tCKN) {
+        Cursor crs = read.rawQuery("SELECT * FROM users WHERE TCKN = (" + tCKN + ")", null);
 
         return crs.moveToFirst();
     }
 
-    public boolean userRoleIsAdmin (int userRoleId){
-        Cursor crs = read.rawQuery("SELECT * FROM roles WHERE ID = ("+userRoleId+")", null);
+    //============================= Test Icin Tablo Sifirlamalari ================================//
+
+
+    public boolean userRoleIsAdmin(int userRoleId) {
+        Cursor crs = read.rawQuery("SELECT * FROM roles WHERE ID = (" + userRoleId + ")", null);
 
         String role = crs.getString(1);
 
         return role.equals("Admin") ? true : false;
     }
 
-    public String whatIsUserDepartment (int id){
-        Cursor crs = read.rawQuery("SELECT * FROM departments WHERE ID = ("+id+")", null);
+    public String whatIsUserDepartment(int id) {
+        Cursor crs = read.rawQuery("SELECT * FROM departments WHERE ID = (" + id + ")", null);
 
         return crs.getString(1);
     }
 
-    //================================== User Operations ===================================//
+    //===================================== User Operations ======================================//
 
-    public void userRegister (long tCKN, int roleId, int departmentId, String name, String surName, String password){
+    public void userRegister(long tCKN, int roleId, int departmentId, String name, String surName, String password) {
         write.execSQL("INSERT INTO users" +
                 "(TCKN, RoleId, DepartmentId, Name, SurName, Password)" +
-                "VALUES ("+tCKN+", "+roleId+", "+departmentId+", '"+name+"', '"+surName+"', '"+password+"')");
+                "VALUES (" + tCKN + ", " + roleId + ", " + departmentId + ", '" + name + "', '" + surName + "', '" + password + "')");
 
         Toast.makeText(cnt, "Kullanici Basariyla Kaydedildi !", Toast.LENGTH_SHORT).show();
     }
 
-    public boolean userLogin (long tCKN, String password){
+    public boolean userLogin(long tCKN, String password) {
         Cursor crs = read.rawQuery("SELECT * FROM users " +
-                "WHERE TCKN = ("+tCKN+") AND Password = ('"+password+"')", null);
+                "WHERE TCKN = (" + tCKN + ") AND Password = ('" + password + "')", null);
 
         return crs.moveToFirst();
     }
 
-    public void userUpdate(long tCKN, int roleId, int departmentId, String name, String surName, String password){
+    public void userUpdate(long tCKN, int roleId, int departmentId, String name, String surName, String password) {
         write.execSQL("UPDATE users " +
-                "SET RoleId = "+roleId+"," +
-                "DepartmentId = "+departmentId+"," +
-                "Name = '"+name+"'," +
-                "SurName = '"+surName+"'," +
-                "Password = '"+password+"'" +
-                "WHERE TCKN = "+tCKN+" ");
+                "SET RoleId = " + roleId + "," +
+                "DepartmentId = " + departmentId + "," +
+                "Name = '" + name + "'," +
+                "SurName = '" + surName + "'," +
+                "Password = '" + password + "'" +
+                "WHERE TCKN = " + tCKN + " ");
 
         Toast.makeText(cnt, "Kullanıcı Güncelleme İşlemi Başarılı !", Toast.LENGTH_SHORT).show();
     }
 
-    public void userRemove(long tCKN){
-        write.execSQL("DELETE FROM users WHERE TCKN = "+tCKN+" ");
+    public void userRemove(long tCKN) {
+        write.execSQL("DELETE FROM users WHERE TCKN = " + tCKN + " ");
 
         Toast.makeText(cnt, "Kullanıcı Silme İşlemi başarılı !", Toast.LENGTH_SHORT).show();
     }
 
-    public User userDetails(long tCKN){
+    public User userDetails(long tCKN) {
         Cursor crs = read.rawQuery("SELECT * FROM users " +
-                "WHERE TCKN = ("+tCKN+")", null);
+                "WHERE TCKN = (" + tCKN + ")", null);
 
-        if (crs.moveToFirst()){
+        if (crs.moveToFirst()) {
             return new User(
                     crs.getLong(0), // TCKN
                     crs.getInt(1), // RoleId
@@ -179,19 +181,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     crs.getString(4), // SurName
                     crs.getString(5) // Password
             );
-        }
-
-        else{
+        } else {
             return null;
         }
     }
 
-    public ArrayList<User> getAllUsers(){
+    public ArrayList<User> getAllUsers() {
         ArrayList<User> kullanicilar = new ArrayList<>();
 
         Cursor crs = read.rawQuery("SELECT * FROM users", null);
 
-        while(crs.moveToNext()){
+        while (crs.moveToNext()) {
             kullanicilar.add(new User(
                     crs.getLong(0), // TCKN
                     crs.getInt(1), // RoleId
@@ -207,13 +207,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return kullanicilar;
     }
 
-    public ArrayList<User> getAllUserByDepartments(int departmentId){
+    public ArrayList<User> getAllUserByDepartments(int departmentId) {
         ArrayList<User> kullanicilar = new ArrayList<>();
 
         Cursor crs = read.rawQuery("SELECT * FROM users " +
-                "WHERE DepartmentId = "+departmentId+" ", null);
+                "WHERE DepartmentId = " + departmentId + " ", null);
 
-        while(crs.moveToNext()){
+        while (crs.moveToNext()) {
             kullanicilar.add(new User(
                     crs.getLong(0), // TCKN
                     crs.getInt(1), // RoleId
@@ -230,41 +230,41 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //================================== Department Operations ===================================//
-    
-    public void departmentCreate(String departmentName){
+
+    public void departmentCreate(String departmentName) {
         write.execSQL("INSERT INTO departments" +
                 "(DepartmentName)" +
-                "VALUES ('"+departmentName+"')");
+                "VALUES ('" + departmentName + "')");
 
         Toast.makeText(cnt, "Departman Oluşturma İşlemi Başarılı !", Toast.LENGTH_SHORT).show();
     }
-    
-    public void departmentRemove(int id){
-        write.execSQL("DELETE FROM departments WHERE ID = "+id+" ");
+
+    public void departmentRemove(int id) {
+        write.execSQL("DELETE FROM departments WHERE ID = " + id + " ");
 
         Toast.makeText(cnt, "Departman Silme İşlemi Başarılı !", Toast.LENGTH_SHORT).show();
     }
-    
-    public void departmentUpdate(int id, String departmentName){
+
+    public void departmentUpdate(int id, String departmentName) {
         write.execSQL("UPDATE departments " +
-                "SET DepartmentName = '"+departmentName+"'" +
-                "WHERE ID = "+id+"");
+                "SET DepartmentName = '" + departmentName + "'" +
+                "WHERE ID = " + id + "");
 
         Toast.makeText(cnt, "Departman Güncelleme İşlemi Başarılı !", Toast.LENGTH_SHORT).show();
     }
 
-    public boolean departmentIsHave(String departmentName){
-        Cursor crs = read.rawQuery("SELECT * FROM departments WHERE DepartmentName = '"+departmentName+"' ", null);
+    public boolean departmentIsHave(String departmentName) {
+        Cursor crs = read.rawQuery("SELECT * FROM departments WHERE DepartmentName = '" + departmentName + "' ", null);
 
         return crs.moveToFirst();
     }
 
-    public ArrayList<Department> getAllDepartments(){
+    public ArrayList<Department> getAllDepartments() {
         ArrayList<Department> departmanlar = new ArrayList<>();
 
         Cursor crs = read.rawQuery("SELECT * FROM departments", null);
 
-        while (crs.moveToNext()){
+        while (crs.moveToNext()) {
             departmanlar.add(new Department(
                     crs.getInt(0),
                     crs.getString(1)
@@ -276,12 +276,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return departmanlar;
     }
 
-    public ArrayList<Role> getAllRoles(){
+    public ArrayList<Role> getAllRoles() {
         ArrayList<Role> roller = new ArrayList<>();
 
         Cursor crs = read.rawQuery("SELECT * FROM roles", null);
 
-        while(crs.moveToNext()){
+        while (crs.moveToNext()) {
             roller.add(new Role(
                     crs.getInt(0),
                     crs.getString(1)
@@ -293,24 +293,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return roller;
     }
 
-    //================================== Shift Operations ===================================//
+    //==================================== Shift Operations ======================================//
 
-    public void shiftCreate(long tCKN, int departmentId, String date, String beginTime, String endTime){
+    public void shiftCreate(long tCKN, int departmentId, String date, String beginTime, String endTime) {
         write.execSQL("INSERT INTO shifts " +
                 "(UserTCKN, DepartmentId, Date, BeginTime, EndTime)" +
-                "VALUES ("+tCKN+", "+departmentId+", '"+date+"', '"+beginTime+"', '"+endTime+"')");
+                "VALUES (" + tCKN + ", " + departmentId + ", '" + date + "', '" + beginTime + "', '" + endTime + "')");
 
         Toast.makeText(cnt, "Vardiya Ekleme İşlemi Başarıyla Tamamlandı !", Toast.LENGTH_SHORT).show();
     }
 
-    public ArrayList<Shift> getAllShiftByDateAndDepartmentId(String date, int departmentId){
+    public ArrayList<Shift> getAllShiftByDateAndDepartmentId(String date, int departmentId) {
         ArrayList<Shift> vardiyalar = new ArrayList<>();
 
         Cursor crs = read.rawQuery("SELECT * FROM shifts " +
                 "JOIN users on users.TCKN = shifts.UserTCKN " +
-                "WHERE Date = '"+date+"' AND shifts.DepartmentId = "+departmentId+" ", null);
+                "WHERE Date = '" + date + "' AND shifts.DepartmentId = " + departmentId + " ", null);
 
-        while(crs.moveToNext()){
+        while (crs.moveToNext()) {
             int id = crs.getInt(0);
             long userTckn = crs.getLong(1);
             int shfDepartmentId = crs.getInt(2);
@@ -323,7 +323,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date shfDate = null;
 
-            try{
+            try {
                 shfDate = dateFormat.parse(dateStr);
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -333,10 +333,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             Date beginTime = null;
             Date endTime = null;
 
-            try{
+            try {
                 beginTime = timeFormat.parse(beginTimeStr);
                 endTime = timeFormat.parse(endTimeStr);
-            } catch (ParseException e ){
+            } catch (ParseException e) {
                 e.printStackTrace();
             }
 
@@ -357,64 +357,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return vardiyalar;
     }
 
-    public void shiftRemove(int id){
-        write.execSQL("DELETE FROM shifts WHERE ID = "+id+"");
+    public void shiftRemove(int id) {
+        write.execSQL("DELETE FROM shifts WHERE ID = " + id + "");
 
         Toast.makeText(cnt, "Vardiya Silme İşlemi Başarılı !", Toast.LENGTH_SHORT).show();
     }
 
-    public boolean shiftIsHave(String date, long tCKN){
+    public boolean shiftIsHave(String date, long tCKN) {
         Cursor crs = read.rawQuery("SELECT * FROM shifts " +
-                "WHERE Date = '"+date+"' AND UserTCKN = "+tCKN+" ", null);
+                "WHERE Date = '" + date + "' AND UserTCKN = " + tCKN + " ", null);
 
         return crs.moveToFirst();
     }
-
-//    public ArrayList<Shift> getAllShift(){
-//        ArrayList<Shift> vardiyalar = new ArrayList<>();
-//
-//        Cursor crs = read.rawQuery("SELECT * FROM shifts ", null);
-//
-//        while(crs.moveToNext()){
-//            int id = crs.getInt(0);
-//            long userTckn = crs.getLong(1);
-//            int shfDepartmentId = crs.getInt(2);
-//            String dateStr = crs.getString(3);
-//            String beginTimeStr = crs.getString(4);
-//            String endTimeStr = crs.getString(5);
-//
-//            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//            Date shfDate = null;
-//
-//            try{
-//                shfDate = dateFormat.parse(dateStr);
-//            } catch (ParseException e) {
-//                e.printStackTrace();
-//            }
-//
-//            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-//            Date beginTime = null;
-//            Date endTime = null;
-//
-//            try{
-//                beginTime = timeFormat.parse(beginTimeStr);
-//                endTime = timeFormat.parse(endTimeStr);
-//            } catch (ParseException e ){
-//                e.printStackTrace();
-//            }
-//
-//            vardiyalar.add(new Shift(
-//                    id,
-//                    userTckn,
-//                    shfDepartmentId,
-//                    shfDate,
-//                    beginTime,
-//                    endTime
-//            ));
-//        }
-//
-//        crs.close();
-//
-//        return vardiyalar;
-//    }
 }
