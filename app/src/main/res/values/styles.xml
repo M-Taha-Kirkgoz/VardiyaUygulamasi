@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="EskiButton" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/border</item>
+        <item name="android:textColor">#CD7D08</item>
+    </style>
+</resources>

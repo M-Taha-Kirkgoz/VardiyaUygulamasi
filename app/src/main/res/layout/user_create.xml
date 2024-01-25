@@ -3,16 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/bakcgorund_2"
     android:layout_height="match_parent">
 
     <EditText
         android:id="@+id/user_tc_no"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginTop="66dp"
         android:layout_marginEnd="56dp"
         android:ems="10"
         android:inputType="text"
+        android:background="@drawable/button_background"
+        android:backgroundTint="#2e3133"
+        android:layout_height="44dp"
+        android:textColor="#cabba5"
+        android:foreground="@drawable/border"
+        android:paddingLeft="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,17 +29,23 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="76dp"
         android:text="T.C. No."
+        android:textColor="#cabba5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/user_name"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginTop="37dp"
         android:layout_marginEnd="6dp"
         android:ems="10"
         android:inputType="text"
+        android:background="@drawable/button_background"
+        android:backgroundTint="#2e3133"
+        android:layout_height="44dp"
+        android:textColor="#cabba5"
+        android:foreground="@drawable/border"
+        android:paddingLeft="10dp"
         app:layout_constraintEnd_toEndOf="@+id/user_tc_no"
         app:layout_constraintTop_toBottomOf="@+id/user_tc_no" />
 
@@ -43,6 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="11dp"
         android:text="Adı"
+        android:textColor="#cabba5"
         app:layout_constraintBottom_toBottomOf="@+id/user_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/user_name" />
@@ -50,10 +63,15 @@
     <EditText
         android:id="@+id/user_surname"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginTop="43dp"
         android:ems="10"
         android:inputType="text"
+        android:background="@drawable/button_background"
+        android:backgroundTint="#2e3133"
+        android:layout_height="44dp"
+        android:textColor="#cabba5"
+        android:foreground="@drawable/border"
+        android:paddingLeft="10dp"
         app:layout_constraintStart_toStartOf="@+id/user_name"
         app:layout_constraintTop_toBottomOf="@+id/user_name" />
 
@@ -63,16 +81,22 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:text="Soyadı"
+        android:textColor="#cabba5"
         app:layout_constraintBaseline_toBaselineOf="@+id/user_surname"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/user_pass"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginTop="43dp"
         android:ems="10"
         android:inputType="text"
+        android:background="@drawable/button_background"
+        android:backgroundTint="#2e3133"
+        android:layout_height="44dp"
+        android:textColor="#cabba5"
+        android:foreground="@drawable/border"
+        android:paddingLeft="10dp"
         app:layout_constraintStart_toStartOf="@+id/user_surname"
         app:layout_constraintTop_toBottomOf="@+id/user_surname" />
 
@@ -82,18 +106,23 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="9dp"
         android:text="Şifresi"
+        android:textColor="#cabba5"
         app:layout_constraintBaseline_toBaselineOf="@+id/user_pass"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
         android:id="@+id/departments"
         android:layout_width="0dp"
-        android:layout_height="35dp"
+        android:layout_height="44dp"
         android:layout_marginTop="68dp"
         android:layout_marginEnd="62dp"
         android:layout_marginBottom="69dp"
         app:layout_constraintBottom_toTopOf="@+id/textView7"
         app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/button_background"
+        android:backgroundTint="#2e3133"
+        android:foreground="@drawable/border"
+        android:textColor="#cabba5"
         app:layout_constraintStart_toEndOf="@+id/textView6"
         app:layout_constraintTop_toBottomOf="@+id/user_pass" />
 
@@ -104,6 +133,7 @@
         android:layout_marginStart="7dp"
         android:layout_marginEnd="39dp"
         android:text="Departmanı"
+        android:textColor="#cabba5"
         app:layout_constraintBaseline_toBaselineOf="@+id/departments"
         app:layout_constraintEnd_toStartOf="@+id/departments"
         app:layout_constraintStart_toStartOf="parent" />
@@ -111,9 +141,13 @@
     <Spinner
         android:id="@+id/roles"
         android:layout_width="0dp"
-        android:layout_height="35dp"
+        android:layout_height="44dp"
         android:layout_marginEnd="60dp"
         android:layout_marginBottom="261dp"
+        android:background="@drawable/button_background"
+        android:backgroundTint="#2e3133"
+        android:foreground="@drawable/border"
+        android:textColor="#cabba5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView7" />
@@ -125,6 +159,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="84dp"
         android:text="Rolü"
+        android:textColor="#cabba5"
         app:layout_constraintBaseline_toBaselineOf="@+id/roles"
         app:layout_constraintEnd_toStartOf="@+id/roles"
         app:layout_constraintStart_toStartOf="parent" />
@@ -135,6 +170,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="94dp"
         android:text="Kullanıcı Kaydet"
+        android:textColor="#060a0d"
+        app:rippleColor="#6e5731"
+        android:backgroundTint="#cabaac"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

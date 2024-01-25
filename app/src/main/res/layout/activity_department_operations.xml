@@ -4,17 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bakcgorund_2"
     tools:context=".admin.DepartmentOperations">
 
     <TextView
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="125dp"
+        android:layout_marginTop="56dp"
         android:text="Departman İşlemleri"
+        android:textColor="#cabba5"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,6 +27,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="106dp"
         android:text="Departman Oluştur"
+        android:textColor="#060a0d"
+        app:rippleColor="#6e5731"
+        android:backgroundTint="#cabaac"
         app:layout_constraintBottom_toTopOf="@+id/departman_guncelle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -32,9 +38,13 @@
         android:id="@+id/departman_guncelle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="217dp"
+        android:layout_marginBottom="244dp"
+        android:backgroundTint="#cabaac"
         android:text="Departman Güncelle"
+        android:textColor="#060a0d"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:rippleColor="#6e5731" />
 </androidx.constraintlayout.widget.ConstraintLayout>

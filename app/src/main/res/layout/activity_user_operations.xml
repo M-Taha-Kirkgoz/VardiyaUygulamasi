@@ -4,18 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bakcgorund_2"
     tools:context=".admin.UserOperations">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="166dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="132dp"
+        android:layout_marginTop="60dp"
         android:text="Kullanıcı İşlemleri"
         android:textAlignment="center"
+        android:textColor="#cabba5"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
@@ -24,22 +27,30 @@
         android:id="@+id/kullanici_guncelle"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="281dp"
+        android:layout_marginBottom="248dp"
+        android:backgroundTint="#cabaac"
         android:text="Kullanıcı Güncelle"
+        android:textColor="#060a0d"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
+        app:rippleColor="#6e5731"
         tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/kullanici_olustur"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="107dp"
+        android:layout_marginBottom="104dp"
+        android:backgroundTint="#cabaac"
         android:text="Kullanıcı Oluştur"
+        android:textColor="#060a0d"
         app:layout_constraintBottom_toTopOf="@+id/kullanici_guncelle"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
+        app:rippleColor="#6e5731"
         tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

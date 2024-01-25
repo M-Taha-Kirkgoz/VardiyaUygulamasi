@@ -4,18 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bakcgorund_2"
     tools:context=".admin.AdminHome">
 
-    <Button
-        android:id="@+id/vardiya_islemleri"
-        android:layout_width="200dp"
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="208dp"
-        android:text="@string/vardiya_lemleri"
+        android:layout_marginTop="52dp"
+        android:text="VardiyaGO"
+        android:textColor="#cabba5"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/vardiyalar"
@@ -23,10 +25,31 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
         android:text="@string/vardiyalar"
+        android:textColor="#060a0d"
+        app:rippleColor="#6e5731"
+        android:backgroundTint="#cabaac"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/vardiya_islemleri"
         tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/vardiya_islemleri"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="272dp"
+        android:backgroundTint="#cabaac"
+        android:text="@string/vardiya_lemleri"
+        android:textColor="#060a0d"
+        android:textColorHighlight="#0B0B0B"
+        android:textColorHint="#0C0C0C"
+        android:textColorLink="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:rippleColor="#6e5731"
+        tools:ignore="MissingConstraints" />
+
 
     <Button
         android:id="@+id/kullanici_islemleri"
@@ -34,6 +57,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="47dp"
         android:text="@string/kullan_c_lemleri"
+        android:textColor="#060a0d"
+        app:rippleColor="#6e5731"
+        android:backgroundTint="#cabaac"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/vardiyalar"
@@ -45,6 +71,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="47dp"
         android:text="@string/departman_lemleri"
+        android:textColor="#060a0d"
+        app:rippleColor="#6e5731"
+        android:backgroundTint="#cabaac"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/kullanici_islemleri"

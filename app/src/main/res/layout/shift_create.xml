@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bakcgorund_2">
 
     <Spinner
         android:id="@+id/kullanici_sec"
@@ -13,6 +14,9 @@
         android:layout_marginTop="64dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="61dp"
+        android:background="@drawable/button_background"
+        android:backgroundTint="#2e3133"
+        android:foreground="@drawable/border"
         app:layout_constraintBottom_toTopOf="@+id/calendarView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,6 +30,7 @@
         android:layout_marginTop="17dp"
         android:text="Kullanıcı Seç"
         android:textSize="20sp"
+        android:textColor="#cabba5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,6 +40,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="22dp"
         android:layout_marginTop="163dp"
+        android:background="@drawable/button_background"
+        android:backgroundTint="#2e3133"
+        android:dateTextAppearance="@style/EskiButton"
+        android:foreground="@drawable/border"
+        android:weekDayTextAppearance="@style/EskiButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,6 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
         android:layout_marginBottom="8dp"
+        android:textColor="#cabba5"
         android:text="Tarih Belirle"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/calendarView"
@@ -57,26 +68,37 @@
         android:layout_marginTop="26dp"
         android:text="Başlangıç Saati"
         android:textSize="20sp"
+        android:textColor="#cabba5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendarView" />
 
     <EditText
         android:id="@+id/endTime"
         android:layout_width="139dp"
-        android:layout_height="wrap_content"
         android:layout_marginEnd="38dp"
         android:ems="10"
         android:inputType="time"
+        android:background="@drawable/button_background"
+        android:backgroundTint="#2e3133"
+        android:layout_height="44dp"
+        android:textColor="#cabba5"
+        android:foreground="@drawable/border"
+        android:paddingLeft="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/beginTime" />
 
     <EditText
         android:id="@+id/beginTime"
         android:layout_width="139dp"
-        android:layout_height="wrap_content"
+        android:layout_height="44dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/button_background"
+        android:backgroundTint="#2e3133"
         android:ems="10"
+        android:foreground="@drawable/border"
         android:inputType="time"
+        android:paddingLeft="10dp"
+        android:textColor="#cabba5"
         app:layout_constraintStart_toStartOf="@+id/textView16"
         app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
@@ -86,6 +108,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="9dp"
         android:text="Bitiş Saati"
+        android:textColor="#cabba5"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/endTime"
         app:layout_constraintStart_toStartOf="@+id/endTime" />
@@ -98,6 +121,9 @@
         android:layout_marginTop="46dp"
         android:layout_marginEnd="138dp"
         android:text="Vardiya Ata"
+        android:textColor="#060a0d"
+        app:rippleColor="#6e5731"
+        android:backgroundTint="#cabaac"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/endTime" />
