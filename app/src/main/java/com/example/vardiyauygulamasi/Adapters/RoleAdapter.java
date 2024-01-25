@@ -1,6 +1,7 @@
 package com.example.vardiyauygulamasi.Adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ public class RoleAdapter extends ArrayAdapter<Role> {
 
         TextView textView = convertView.findViewById(android.R.id.text1);
         textView.setText(roller.roleName);
+        textView.setTextColor(Color.parseColor("#cabba5"));
 
         return convertView;
     }
@@ -41,6 +43,7 @@ public class RoleAdapter extends ArrayAdapter<Role> {
 
         TextView textView = convertView.findViewById(android.R.id.text1);
         textView.setText(role.roleName);
+        textView.setTextColor(Color.parseColor("#cabba5"));
 
         return convertView;
     }

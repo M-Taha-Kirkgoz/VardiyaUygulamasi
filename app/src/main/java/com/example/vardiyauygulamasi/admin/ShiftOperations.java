@@ -34,6 +34,7 @@ public class ShiftOperations extends AppCompatActivity {
     private String formattedEndTime;
     private int selectedShiftId;
     DatabaseHelper db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,9 +65,9 @@ public class ShiftOperations extends AppCompatActivity {
             }
         });
 
-        createShift.setOnClickListener(new View.OnClickListener(){
+        createShift.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 setContentView(R.layout.shift_create);
 
                 ArrayList<User> users = db.getAllUserByDepartments(selectedDepartmentId);
@@ -90,6 +91,7 @@ public class ShiftOperations extends AppCompatActivity {
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                             selectedUserTCKN = users.get(position).tCKN;
                         }
+
                         @Override
                         public void onNothingSelected(AdapterView<?> parent) {
 
@@ -108,15 +110,15 @@ public class ShiftOperations extends AppCompatActivity {
                         }
                     });
 
-                    createShift.setOnClickListener(new View.OnClickListener(){
+                    createShift.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void onClick(View v){
+                        public void onClick(View v) {
                             String[] beginTimeParts = beginTime.getText().toString().split(":");
                             String[] endTimeParts = endTime.getText().toString().split(":");
 
                             String editBeginHour, editBeginMinute, editEndHour, editEndMinute;
 
-                            if (beginTimeParts.length == 2){
+                            if (beginTimeParts.length == 2) {
 
                                 int beginHour = Integer.parseInt(beginTimeParts[0]);
                                 int beginMinute = Integer.parseInt(beginTimeParts[1]);
@@ -124,15 +126,13 @@ public class ShiftOperations extends AppCompatActivity {
                                 int endHour = Integer.parseInt(endTimeParts[0]);
                                 int endMinute = Integer.parseInt(endTimeParts[1]);
 
-                                if (beginHour >= 24 || endHour >= 24){
+                                if (beginHour >= 24 || endHour >= 24) {
                                     Toast.makeText(ShiftOperations.this, "Lütfen Geçerli Bir Saat Dilimi Giriniz ! ( 0 - 23 )", Toast.LENGTH_SHORT).show();
-                                }
-                                else if (beginMinute >= 60 || endMinute >= 60){
+                                } else if (beginMinute >= 60 || endMinute >= 60) {
                                     Toast.makeText(ShiftOperations.this, "Lütfen Geçerli Bir Dakika Dilimi Giriniz ! ( 0 - 59 )", Toast.LENGTH_SHORT).show();
-                                }
-                                else{
-                                    if ((beginHour < endHour) && selectedDate != null){
-                                        if (!db.shiftIsHave(selectedDate, selectedUserTCKN)){
+                                } else {
+                                    if ((beginHour < endHour) && selectedDate != null) {
+                                        if (!db.shiftIsHave(selectedDate, selectedUserTCKN)) {
                                             editBeginHour = beginHour < 10 ? "0" + String.valueOf(beginHour) : String.valueOf(beginHour);
                                             editBeginMinute = beginMinute < 10 ? "0" + String.valueOf(beginMinute) : String.valueOf(beginMinute);
 
@@ -143,23 +143,19 @@ public class ShiftOperations extends AppCompatActivity {
                                             formattedEndTime = editEndHour + ":" + editEndMinute;
 
                                             db.shiftCreate(selectedUserTCKN, selectedDepartmentId, selectedDate, formattedBeginTime, formattedEndTime);
-                                        }
-                                        else {
+                                        } else {
                                             Toast.makeText(ShiftOperations.this, "Belirlenen Tarihte Kullanıcının Bir Vardiya Kaydı Var Zaten !", Toast.LENGTH_LONG).show();
                                         }
-                                    }
-                                    else {
+                                    } else {
                                         Toast.makeText(ShiftOperations.this, "Baslangic saati bitis saatinden kucuk olmali !", Toast.LENGTH_LONG).show();
                                     }
                                 }
-                            }
-                            else {
+                            } else {
                                 Toast.makeText(ShiftOperations.this, "Lütfen Geçerli Bir Zaman Formatı Giriniz ! ( Saat : Dakika )", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
-                }
-                else {
+                } else {
                     createShift.setEnabled(false);
                 }
             }
@@ -178,7 +174,7 @@ public class ShiftOperations extends AppCompatActivity {
 
                 date.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
                     @Override
-                    public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth){
+                    public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                         Calendar calendar = Calendar.getInstance();
                         calendar.set(year, (month), dayOfMonth);
 
@@ -186,10 +182,14 @@ public class ShiftOperations extends AppCompatActivity {
                         selectedDate = dateFormat.format(calendar.getTime());
 
                         ArrayList<Shift> shifts = db.getAllShiftByDateAndDepartmentId(selectedDate, selectedDepartmentId);
+                        selectedShiftId = -1;
+
 
                         if (shifts.size() != 0) {
                             ShiftAdapter shiftAdapter = new ShiftAdapter(ShiftOperations.this, shifts);
                             userFilterByDate.setAdapter(shiftAdapter);
+
+                            Toast.makeText(ShiftOperations.this, "girdi", Toast.LENGTH_SHORT).show();
 
                             userFilterByDate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                 @Override
@@ -205,12 +205,13 @@ public class ShiftOperations extends AppCompatActivity {
 
                             shiftRemove.setOnClickListener(new View.OnClickListener() {
                                 @Override
-                                public void onClick(View v){
-                                    db.shiftRemove(selectedShiftId);
+                                public void onClick(View v) {
+                                    if (selectedShiftId > -1) {
+                                        db.shiftRemove(selectedShiftId);
+                                    }
                                 }
                             });
-                        }
-                        else {
+                        } else {
                             shiftRemove.setEnabled(false);
                         }
                     }

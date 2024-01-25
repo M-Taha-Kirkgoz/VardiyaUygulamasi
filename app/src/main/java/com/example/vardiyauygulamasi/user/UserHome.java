@@ -36,8 +36,6 @@ public class UserHome extends AppCompatActivity {
 
         User userDetail = (User) intent.getSerializableExtra("userDetail");
 
-        Toast.makeText(this, String.valueOf(userDetail.departmentId), Toast.LENGTH_SHORT).show();
-
         selectedDepartmentId = userDetail.departmentId;
 
         if (selectedDepartmentId != -1){
@@ -57,7 +55,7 @@ public class UserHome extends AppCompatActivity {
 
                     table.setLayoutManager(new LinearLayoutManager(UserHome.this));
 
-                    ShiftViewAdapter viewAdapter = new ShiftViewAdapter(shifts);
+                    ShiftViewAdapter viewAdapter = new ShiftViewAdapter(shifts, userDetail.tCKN);
                     table.setAdapter(viewAdapter);
                 }
             });

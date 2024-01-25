@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.vardiyauygulamasi.Adapters.DepartmentsAdapter;
 import com.example.vardiyauygulamasi.Adapters.ShiftViewAdapter;
@@ -31,11 +33,15 @@ import java.util.Calendar;
 public class Shifts extends AppCompatActivity {
     private int selectedDepartmentId = -1;
     private String selectedDate;
+    private long userTckn;
     DatabaseHelper db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shifts);
+
+        Intent intent = getIntent();
+        userTckn = intent.getLongExtra("userTckn", -1);
 
         db = new DatabaseHelper(getApplicationContext());
 
@@ -83,7 +89,9 @@ public class Shifts extends AppCompatActivity {
 
                                 table.setLayoutManager(new LinearLayoutManager(Shifts.this));
 
-                                ShiftViewAdapter viewAdapter = new ShiftViewAdapter(shifts);
+                                Toast.makeText(Shifts.this, String.valueOf(userTckn), Toast.LENGTH_SHORT).show();
+
+                                ShiftViewAdapter viewAdapter = new ShiftViewAdapter(shifts, userTckn);
                                 table.setAdapter(viewAdapter);
 
                             }

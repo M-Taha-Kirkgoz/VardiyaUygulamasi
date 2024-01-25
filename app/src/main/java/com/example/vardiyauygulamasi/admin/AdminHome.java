@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
 import com.example.vardiyauygulamasi.R;
 import com.example.vardiyauygulamasi.Dtos.User;
 
@@ -56,6 +58,8 @@ public class AdminHome extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 Intent shiftsIntent = new Intent(AdminHome.this, Shifts.class);
+
+                shiftsIntent.putExtra("userTckn", userDetail.tCKN);
 
                 startActivity(shiftsIntent);
             }

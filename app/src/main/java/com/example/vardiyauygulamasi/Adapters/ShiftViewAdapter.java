@@ -1,9 +1,12 @@
 package com.example.vardiyauygulamasi.Adapters;
 
+import android.graphics.Color;
+import android.provider.CalendarContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,9 +20,11 @@ import java.util.List;
 
 public class ShiftViewAdapter extends RecyclerView.Adapter<ShiftViewAdapter.ShiftViewHolder> {
     private ArrayList<Shift> shifts;
+    private long userTckn;
 
-    public ShiftViewAdapter(ArrayList<Shift> shifts){
+    public ShiftViewAdapter(ArrayList<Shift> shifts, long userTckn){
         this.shifts = shifts;
+        this.userTckn = userTckn;
     }
 
     @NonNull
@@ -33,6 +38,15 @@ public class ShiftViewAdapter extends RecyclerView.Adapter<ShiftViewAdapter.Shif
     public void onBindViewHolder(@NonNull ShiftViewHolder holder, int position) {
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
         Shift shift = shifts.get(position);
+        if(userTckn == shift.userTckn){
+            holder.adSoyadTextView.setBackgroundColor(Color.parseColor("#CD7D08"));
+            holder.baslangicSaatiTextView.setBackgroundColor(Color.parseColor("#CD7D08"));
+            holder.bitisSaatiTextView.setBackgroundColor(Color.parseColor("#CD7D08"));
+
+            holder.adSoyadTextView.setTextColor(Color.parseColor("#000000"));
+            holder.baslangicSaatiTextView.setTextColor(Color.parseColor("#000000"));
+            holder.bitisSaatiTextView.setTextColor(Color.parseColor("#000000"));
+        }
         holder.adSoyadTextView.setText(shift.userName + " " + shift.userSurname);
         holder.baslangicSaatiTextView.setText(timeFormat.format(shift.beginTime.getTime()));
         holder.bitisSaatiTextView.setText(timeFormat.format(shift.endTime.getTime()));

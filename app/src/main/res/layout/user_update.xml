@@ -31,7 +31,8 @@
         android:foreground="@drawable/border"
         android:inputType="text"
         android:paddingLeft="10dp"
-        android:textColor="#cabba5"
+        android:textColor="#EF2A2A"
+        android:enabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

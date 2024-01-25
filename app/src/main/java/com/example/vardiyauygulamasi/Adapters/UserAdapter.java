@@ -1,6 +1,7 @@
 package com.example.vardiyauygulamasi.Adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ public class UserAdapter extends ArrayAdapter<User> {
 
         TextView textView = convertView.findViewById(android.R.id.text1);
         textView.setText(kullanicilar.name + " " + kullanicilar.surName);
+        textView.setTextColor(Color.parseColor("#cabba5"));
 
         return convertView;
     }
@@ -41,6 +43,7 @@ public class UserAdapter extends ArrayAdapter<User> {
 
         TextView textView = convertView.findViewById(android.R.id.text1);
         textView.setText(kullanicilar.name + " " + kullanicilar.surName);
+        textView.setTextColor(Color.parseColor("#cabba5"));
 
         return convertView;
     }
