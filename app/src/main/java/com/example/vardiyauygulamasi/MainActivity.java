@@ -76,8 +76,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 boolean kullanici_varmi = db.userIsHave(Long.parseLong(tc_no.getText().toString()));
 
-                dialog.show();
-
                 if (kullanici_varmi){
                     boolean login = db.userLogin(Long.parseLong(tc_no.getText().toString()), pass.getText().toString());
 
