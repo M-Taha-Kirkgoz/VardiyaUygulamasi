@@ -3,13 +3,17 @@ package com.example.vardiyauygulamasi.admin;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.vardiyauygulamasi.DatabaseHelper;
@@ -33,7 +37,9 @@ public class ShiftOperations extends AppCompatActivity {
     private String formattedBeginTime;
     private String formattedEndTime;
     private int selectedShiftId;
+    private String userName;
     DatabaseHelper db;
+    Dialog alertDialog, confirmDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +57,30 @@ public class ShiftOperations extends AppCompatActivity {
 
         DepartmentsAdapter departmentAdapter = new DepartmentsAdapter(ShiftOperations.this, departments);
         departmentSpinner.setAdapter(departmentAdapter);
+
+        alertDialog = new Dialog(ShiftOperations.this);
+        alertDialog.setContentView(R.layout.custom_alert_box);
+        alertDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        alertDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.custom_dialog_bg));
+        alertDialog.setCancelable(false);
+
+        TextView alertTitle = alertDialog.findViewById(R.id.title);
+        TextView alertBody = alertDialog.findViewById(R.id.body);
+
+        Button btnDialogOk = alertDialog.findViewById(R.id.btnDialogOk);
+
+
+        confirmDialog = new Dialog(ShiftOperations.this);
+        confirmDialog.setContentView(R.layout.custom_dialog_box);
+        confirmDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        confirmDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.custom_dialog_bg));
+        confirmDialog.setCancelable(false);
+
+        TextView confirmTitle = confirmDialog.findViewById(R.id.title);
+        TextView confirmBody = confirmDialog.findViewById(R.id.body);
+
+        Button btnDialogNo = confirmDialog.findViewById(R.id.btnDialogNo);
+        Button btnDialogYes = confirmDialog.findViewById(R.id.btnDialogYes);
 
 
         departmentSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -90,6 +120,7 @@ public class ShiftOperations extends AppCompatActivity {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                             selectedUserTCKN = users.get(position).tCKN;
+                            userName = users.get(position).name + " " + users.get(position).surName;
                         }
 
                         @Override
@@ -143,15 +174,55 @@ public class ShiftOperations extends AppCompatActivity {
                                             formattedEndTime = editEndHour + ":" + editEndMinute;
 
                                             db.shiftCreate(selectedUserTCKN, selectedDepartmentId, selectedDate, formattedBeginTime, formattedEndTime);
+
+                                            alertTitle.setText("İşlem Başarılı !");
+                                            alertBody.setText(selectedDate + " tarihine " + userName + " kullanıcısı için başarıyla kayıt oluşturuldu.");
+
+                                            alertDialog.show();
+
+                                            btnDialogOk.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    alertDialog.dismiss();
+
+                                                    onBackPressed();
+
+                                                    Intent backPage = new Intent(ShiftOperations.this, ShiftOperations.class);
+                                                    startActivity(backPage);
+                                                }
+                                            });
+
                                         } else {
-                                            Toast.makeText(ShiftOperations.this, "Belirlenen Tarihte Kullanıcının Bir Vardiya Kaydı Var Zaten !", Toast.LENGTH_LONG).show();
+
+                                            alertTitle.setText("Kayıtlı Vardiya !");
+                                            alertBody.setText(selectedDate + " tarihinde " + userName + " kullanıcısının kayıt bir vardiyası bulunmakta !");
+
+                                            alertDialog.show();
+
+                                            btnDialogOk.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    alertDialog.dismiss();
+                                                }
+                                            });
                                         }
                                     } else {
                                         Toast.makeText(ShiftOperations.this, "Baslangic saati bitis saatinden kucuk olmali !", Toast.LENGTH_LONG).show();
                                     }
                                 }
                             } else {
-                                Toast.makeText(ShiftOperations.this, "Lütfen Geçerli Bir Zaman Formatı Giriniz ! ( Saat : Dakika )", Toast.LENGTH_SHORT).show();
+
+                                alertTitle.setText("Hatalı Zaman Formatı !");
+                                alertBody.setText("Lütfen Geçerli Bir Zaman Formatı Giriniz ! ( Saat : Dakika )");
+
+                                alertDialog.show();
+
+                                btnDialogOk.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        alertDialog.dismiss();
+                                    }
+                                });
                             }
                         }
                     });
@@ -189,8 +260,6 @@ public class ShiftOperations extends AppCompatActivity {
                             ShiftAdapter shiftAdapter = new ShiftAdapter(ShiftOperations.this, shifts);
                             userFilterByDate.setAdapter(shiftAdapter);
 
-                            Toast.makeText(ShiftOperations.this, "girdi", Toast.LENGTH_SHORT).show();
-
                             userFilterByDate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                 @Override
                                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -203,15 +272,66 @@ public class ShiftOperations extends AppCompatActivity {
                                 }
                             });
 
+                            shiftRemove.setEnabled(true);
+
                             shiftRemove.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     if (selectedShiftId > -1) {
-                                        db.shiftRemove(selectedShiftId);
+                                        confirmTitle.setText("Silme İşlemini Onaylıyor Musunuz?");
+                                        confirmBody.setText("Seçili vardiya kaydı silinsin mi?");
+
+                                        confirmDialog.show();
+
+                                        btnDialogYes.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                db.shiftRemove(selectedShiftId);
+
+                                                confirmDialog.dismiss();
+
+                                                alertTitle.setText("İşlem Başarılı !");
+                                                alertBody.setText("Seçili vardiya kaydı başarıyla silindi.");
+
+                                                alertDialog.show();
+
+                                                btnDialogOk.setOnClickListener(new View.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(View v) {
+                                                        alertDialog.dismiss();
+
+                                                        onBackPressed();
+
+                                                        Intent backPage = new Intent(ShiftOperations.this, ShiftOperations.class);
+                                                        startActivity(backPage);
+                                                    }
+                                                });
+                                            }
+                                        });
+
+                                        btnDialogNo.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                confirmDialog.dismiss();
+
+                                                alertTitle.setText("İptal Edildi !");
+                                                alertBody.setText("Silme işlemi başarıyla iptal edildi.");
+
+                                                alertDialog.show();
+
+                                                btnDialogOk.setOnClickListener(new View.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(View v) {
+                                                        alertDialog.dismiss();
+                                                    }
+                                                });
+                                            }
+                                        });
                                     }
                                 }
                             });
                         } else {
+                            userFilterByDate.setAdapter(null);
                             shiftRemove.setEnabled(false);
                         }
                     }

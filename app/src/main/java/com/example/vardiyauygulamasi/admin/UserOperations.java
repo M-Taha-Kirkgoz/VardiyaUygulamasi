@@ -2,12 +2,16 @@ package com.example.vardiyauygulamasi.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.vardiyauygulamasi.DatabaseHelper;
@@ -28,7 +32,7 @@ public class UserOperations extends AppCompatActivity {
 
     ArrayList<Department> departments;
     ArrayList<Role> roles;
-
+    Dialog alertDialog, confirmDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +45,30 @@ public class UserOperations extends AppCompatActivity {
 
         departments = db.getAllDepartments();
         roles = db.getAllRoles();
+
+        alertDialog = new Dialog(UserOperations.this);
+        alertDialog.setContentView(R.layout.custom_alert_box);
+        alertDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        alertDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.custom_dialog_bg));
+        alertDialog.setCancelable(false);
+
+        TextView alertTitle = alertDialog.findViewById(R.id.title);
+        TextView alertBody = alertDialog.findViewById(R.id.body);
+
+        Button btnDialogOk = alertDialog.findViewById(R.id.btnDialogOk);
+
+
+        confirmDialog = new Dialog(UserOperations.this);
+        confirmDialog.setContentView(R.layout.custom_dialog_box);
+        confirmDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        confirmDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.custom_dialog_bg));
+        confirmDialog.setCancelable(false);
+
+        TextView confirmTitle = confirmDialog.findViewById(R.id.title);
+        TextView confirmBody = confirmDialog.findViewById(R.id.body);
+
+        Button btnDialogNo = confirmDialog.findViewById(R.id.btnDialogNo);
+        Button btnDialogYes = confirmDialog.findViewById(R.id.btnDialogYes);
 
         createUser.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -94,16 +122,38 @@ public class UserOperations extends AppCompatActivity {
                         }
 
                         else if (tCNo.length() != 11){
-                            Toast.makeText(UserOperations.this, "Lütfen Geçerli Bir TC Kimlik Numarası Giriniz !", Toast.LENGTH_LONG).show();
+                            Toast.makeText(UserOperations.this, "Lütfen Geçerli (11 Haneli) Bir TC Kimlik Numarası Giriniz !", Toast.LENGTH_LONG).show();
                         }
 
                         else if (db.userIsHave(Long.parseLong(tCNo.getText().toString()))){
-                            Toast.makeText(UserOperations.this, tCNo.getText().toString() + " Bu Kullanıcı Daha Önce Kayıt Edilmiş !", Toast.LENGTH_SHORT).show();
+
+                            alertTitle.setText("Kayıtlı Kullanıcı !");
+                            alertBody.setText(tCNo.getText().toString() + " T.C. numarasına sahip bir kullanıcı mevcut !");
+
+                            alertDialog.show();
+                            btnDialogOk.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    alertDialog.dismiss();
+                                }
+                            });
                         }
 
                         else {
                             long tCKN =  Long.parseLong(tCNo.getText().toString());
                             db.userRegister(tCKN, selectedRoleId, selectedDepartmentId, userName.getText().toString(), userSurname.getText().toString(), userPassword.getText().toString());
+
+                            alertTitle.setText("İşlem Başarılı !");
+                            alertBody.setText(userName.getText().toString() + " " + userSurname.getText().toString() + " kullanıcısı başarıyla oluşturuldu.");
+
+                            alertDialog.show();
+
+                            btnDialogOk.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    alertDialog.dismiss();
+                                }
+                            });
                         }
                     }
                 });
@@ -197,6 +247,23 @@ public class UserOperations extends AppCompatActivity {
 
                         else {
                             db.userUpdate(selectedTCKN, selectedRoleId, selectedDepartmentId, userName.getText().toString(), userSurname.getText().toString(), userPassword.getText().toString());
+
+                            alertTitle.setText("İşlem Başarılı !");
+                            alertBody.setText(selectedTCKN + " T.C. numarasına ait kullanıcı başarıyla güncellendi");
+
+                            alertDialog.show();
+
+                            btnDialogOk.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    alertDialog.dismiss();
+
+                                    onBackPressed();
+
+                                    Intent backPage = new Intent(UserOperations.this, UserOperations.class);
+                                    startActivity(backPage);
+                                }
+                            });
                         }
                     }
                 });
@@ -204,7 +271,55 @@ public class UserOperations extends AppCompatActivity {
                 userRemove.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
-                        db.userRemove(selectedTCKN);
+                        confirmTitle.setText("Silme İşlemini Onaylıyor Musunuz?");
+                        confirmBody.setText(selectedTCKN + " T.C. numarasına sahip kullanıcı silinsin mi?");
+
+                        confirmDialog.show();
+
+                        btnDialogYes.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                db.userRemove(selectedTCKN);
+
+                                confirmDialog.dismiss();
+
+                                alertTitle.setText("İşlem Başarılı !");
+                                alertBody.setText(selectedTCKN + " T.C. numarasına sahip kullanıcı başarıyla silindi.");
+
+                                alertDialog.show();
+
+                                btnDialogOk.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        alertDialog.dismiss();
+
+                                        onBackPressed();
+
+                                        Intent backPage = new Intent(UserOperations.this, UserOperations.class);
+                                        startActivity(backPage);
+                                    }
+                                });
+                            }
+                        });
+
+                        btnDialogNo.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                confirmDialog.dismiss();
+
+                                alertTitle.setText("İptal Edildi !");
+                                alertBody.setText("Silme işlemi başarıyla iptal edildi.");
+
+                                alertDialog.show();
+
+                                btnDialogOk.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        alertDialog.dismiss();
+                                    }
+                                });
+                            }
+                        });
                     }
                 });
             }

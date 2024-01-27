@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     else{
-                        title.setText("Kullanıcı girişi başarısız !");
+                        title.setText("Kullanıcı Girişi Başarısız !");
                         body.setText("T.C. numarası veya şifre hatalı.");
 
                         dialog.show();

@@ -81,7 +81,7 @@ public class DepartmentOperations extends AppCompatActivity {
                             Toast.makeText(DepartmentOperations.this, "Lütfen Departman Adını Boş Bırakmayınız !", Toast.LENGTH_SHORT).show();
 
                         } else if (db.departmentIsHave(departmentName.getText().toString())) {
-                            alertTitle.setText("Kayıtlı departman !");
+                            alertTitle.setText("Kayıtlı Departman !");
                             alertBody.setText(departmentName.getText().toString() + " adına sahip bir departman zaten var.");
 
                             alertDialog.show();
@@ -155,7 +155,7 @@ public class DepartmentOperations extends AppCompatActivity {
                             Toast.makeText(DepartmentOperations.this, "Lütfen Yeni Bir Departman İsmi Giriniz !", Toast.LENGTH_LONG).show();
                         } else if (db.departmentIsHave(newDepartmentName.getText().toString())) {
 
-                            alertTitle.setText("Kayıtlı departman !");
+                            alertTitle.setText("Kayıtlı Departman !");
                             alertBody.setText(newDepartmentName.getText().toString() + " adına sahip bir departman zaten var.");
 
                             alertDialog.show();
@@ -194,7 +194,7 @@ public class DepartmentOperations extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         if (selectedDepartmentId == 0) {
-                            alertTitle.setText("Seçili departman yok !");
+                            alertTitle.setText("Seçili Departman Yok !");
                             alertBody.setText("Lütfen bir departmanın seçili olduğundan emin olunuz !");
 
                             alertDialog.show();
@@ -209,7 +209,7 @@ public class DepartmentOperations extends AppCompatActivity {
                             Toast.makeText(DepartmentOperations.this, "Lütfen Bir Departmanın Seçili Olduğundan Emin Olunuz !", Toast.LENGTH_LONG).show();
                         } else {
 
-                            confirmTitle.setText("Silme işlemini onaylıyor musunuz?");
+                            confirmTitle.setText("Silme İşlemini Onaylıyor Musunuz?");
                             confirmBody.setText(selectedDepartmentName + " departmanı silinsin mi?");
 
                             confirmDialog.show();
@@ -258,7 +258,6 @@ public class DepartmentOperations extends AppCompatActivity {
                                     });
                                 }
                             });
-
                         }
                     }
                 });
