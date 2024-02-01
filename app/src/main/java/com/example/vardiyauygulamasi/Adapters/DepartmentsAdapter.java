@@ -12,16 +12,20 @@ import com.example.vardiyauygulamasi.Dtos.Department;
 
 import java.util.List;
 
+// Bir departman veri dizisi alır ve dropdown menüde kullanabilmek için formatlar.
 public class DepartmentsAdapter extends ArrayAdapter<Department> {
 
     public DepartmentsAdapter(Context context, List<Department> departmentList){
         super(context, 0, departmentList);
     }
 
+    // Dropdown menünün seçili olan itemi ve özellikleri.
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
+        // Seçilen departmanı işaretler.
         Department departmanlar = getItem(position);
 
+        // Eğer menü içerisinde veri olmaz ise, boş bir görünüm oluşturur.
         if (convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_spinner_item, parent, false);
         }
@@ -33,6 +37,7 @@ public class DepartmentsAdapter extends ArrayAdapter<Department> {
         return convertView;
     }
 
+    // Dropdown açılır menü kısmındaki özellikler.
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
         Department department = getItem(position);

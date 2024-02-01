@@ -29,6 +29,7 @@ public class ShiftViewAdapter extends RecyclerView.Adapter<ShiftViewAdapter.Shif
 
     @NonNull
     @Override
+    // Tablodaki her bir satırın oluştuğu yer.
     public ShiftViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.satir_layout, parent, false);
         return new ShiftViewHolder(view);
@@ -38,6 +39,8 @@ public class ShiftViewAdapter extends RecyclerView.Adapter<ShiftViewAdapter.Shif
     public void onBindViewHolder(@NonNull ShiftViewHolder holder, int position) {
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
         Shift shift = shifts.get(position);
+
+        // Vardiya tablosunda, kullanıcının bulunduğu satırın özellikleri.
         if(userTckn == shift.userTckn){
             holder.adSoyadTextView.setBackgroundColor(Color.parseColor("#CD7D08"));
             holder.baslangicSaatiTextView.setBackgroundColor(Color.parseColor("#CD7D08"));
@@ -47,6 +50,8 @@ public class ShiftViewAdapter extends RecyclerView.Adapter<ShiftViewAdapter.Shif
             holder.baslangicSaatiTextView.setTextColor(Color.parseColor("#000000"));
             holder.bitisSaatiTextView.setTextColor(Color.parseColor("#000000"));
         }
+
+        // Diğer kullanıcıların bulundukları satırlardaki özellikler.
         holder.adSoyadTextView.setText(shift.userName + " " + shift.userSurname);
         holder.baslangicSaatiTextView.setText(timeFormat.format(shift.beginTime.getTime()));
         holder.bitisSaatiTextView.setText(timeFormat.format(shift.endTime.getTime()));

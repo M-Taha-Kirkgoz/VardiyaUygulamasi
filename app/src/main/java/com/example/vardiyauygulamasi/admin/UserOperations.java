@@ -82,6 +82,7 @@ public class UserOperations extends AppCompatActivity {
                 DepartmentsAdapter adapter = new DepartmentsAdapter(UserOperations.this, departments);
                 departmentsSpinner.setAdapter(adapter);
 
+                // Dropdown menüden "Departman" seçimi yapılır. Seçilen departmanın "ID" değişkeni tutulur.
                 departmentsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -97,6 +98,7 @@ public class UserOperations extends AppCompatActivity {
                 RoleAdapter adapterRole = new RoleAdapter(UserOperations.this, roles);
                 roleSpinner.setAdapter(adapterRole);
 
+                // Dropdown menüden "Rol" seçimi yapılır. Seçilen rolün "ID" değişkeni tutulur.
                 roleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id){
@@ -125,7 +127,7 @@ public class UserOperations extends AppCompatActivity {
                             Toast.makeText(UserOperations.this, "Lütfen Geçerli (11 Haneli) Bir TC Kimlik Numarası Giriniz !", Toast.LENGTH_LONG).show();
                         }
 
-                        else if (db.userIsHave(Long.parseLong(tCNo.getText().toString()))){
+                        else if (db.userIsHave(Long.parseLong(tCNo.getText().toString()))){ // Kaydedilen "TC No" kontrol edilir.
 
                             alertTitle.setText("Kayıtlı Kullanıcı !");
                             alertBody.setText(tCNo.getText().toString() + " T.C. numarasına sahip bir kullanıcı mevcut !");
@@ -192,6 +194,7 @@ public class UserOperations extends AppCompatActivity {
                 roleSpinner.setAdapter(roleAdapter);
 
                 userSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    // Seçilen kullanıcının bilgileri, boşluklara doldurulur.
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         selectedTCKN = users.get(position).tCKN;
@@ -326,6 +329,9 @@ public class UserOperations extends AppCompatActivity {
         });
     }
 
+    // Dropdown menülere (Spinner) kullanıcının Departmanını ve Rolünü varsayılan olarak getirir.
+    // Tek fonksiyonda hem Departman hem Role işlemi yapılır.
+    // Departman mı, rol mü belirtmek amacıyla bir bool değişkeni yer alır.
     private int getPositionById(int id, boolean isRole){
 
         if (isRole){
