@@ -72,6 +72,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.execSQL("INSERT INTO roles (RoleName) VALUES('Admin'),('Calisan')");
         db.execSQL("INSERT INTO departments (DepartmentName) VALUES ('Deneme')");
+        // Varsayılan kullanıcı oluşturuluyor. "TC No = 1" , "Şifre = 0000"
         db.execSQL("INSERT INTO users " +
                 "(TCKN, RoleId, DepartmentId, Name, SurName, Password)" +
                 "VALUES (1, 1, 1, 'Admin', 'Admin', '0000')");
@@ -91,7 +92,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "VALUES (1, 1, 1, 'Admin', 'Admin', '0000')");
     }
 
-    //==============================================================================================
+    //============================= Test Icin Tablo Sifirlamalari ================================//
 
     public void deleteUserTable() {
         write.execSQL("DROP TABLE users");
@@ -110,30 +111,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //==============================================================================================
 
+    //===================================== User Operations ======================================//
+
     public boolean userIsHave(long tCKN) {
         Cursor crs = read.rawQuery("SELECT * FROM users WHERE TCKN = (" + tCKN + ")", null);
 
         return crs.moveToFirst();
     }
-
-    //============================= Test Icin Tablo Sifirlamalari ================================//
-
-
-    public boolean userRoleIsAdmin(int userRoleId) {
-        Cursor crs = read.rawQuery("SELECT * FROM roles WHERE ID = (" + userRoleId + ")", null);
-
-        String role = crs.getString(1);
-
-        return role.equals("Admin") ? true : false;
-    }
-
-    public String whatIsUserDepartment(int id) {
-        Cursor crs = read.rawQuery("SELECT * FROM departments WHERE ID = (" + id + ")", null);
-
-        return crs.getString(1);
-    }
-
-    //===================================== User Operations ======================================//
 
     public void userRegister(long tCKN, int roleId, int departmentId, String name, String surName, String password) {
         write.execSQL("INSERT INTO users" +
@@ -207,6 +191,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return kullanicilar;
     }
 
+    // Departmana göre kayıtlı kullanıcıları getirir.
     public ArrayList<User> getAllUserByDepartments(int departmentId) {
         ArrayList<User> kullanicilar = new ArrayList<>();
 
@@ -303,6 +288,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Toast.makeText(cnt, "Vardiya Ekleme İşlemi Başarıyla Tamamlandı !", Toast.LENGTH_SHORT).show();
     }
 
+    // Tarih ve departman türüne göre kayıtlı vardiyaları getirir.
     public ArrayList<Shift> getAllShiftByDateAndDepartmentId(String date, int departmentId) {
         ArrayList<Shift> vardiyalar = new ArrayList<>();
 
