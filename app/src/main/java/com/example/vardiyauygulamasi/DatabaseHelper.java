@@ -97,10 +97,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void deleteUserTable() {
         write.execSQL("DROP TABLE users");
         write.execSQL("DROP TABLE shifts");
+        write.execSQL("DROP TABLE departments");
 
     }
 
     public void createUserTable() {
+        write.execSQL(CreateDepartments);
+        write.execSQL("INSERT INTO departments (DepartmentName) VALUES ('Deneme')");
         write.execSQL(CreateUsers);
         write.execSQL(CreateShifts);
 

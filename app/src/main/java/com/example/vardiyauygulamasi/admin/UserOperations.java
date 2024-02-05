@@ -154,6 +154,11 @@ public class UserOperations extends AppCompatActivity {
                                 @Override
                                 public void onClick(View v) {
                                     alertDialog.dismiss();
+
+                                    onBackPressed();
+
+                                    Intent backPage = new Intent(UserOperations.this, UserOperations.class);
+                                    startActivity(backPage);
                                 }
                             });
                         }
